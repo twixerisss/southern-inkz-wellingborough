@@ -7,703 +7,360 @@
     <meta name="description" content="Southern Inkz is Wellingborough's go-to tattoo and piercing studio on Queen Street. Custom designs, cover-ups, full sleeves, and professional piercings.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Roboto+Slab:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
         :root {
-            --primary: #E74C3C;
-            --primary-dark: #c0392b;
-            --primary-light: #ff6b5b;
-            --bg: #0a0a0a;
-            --bg-card: #111111;
-            --bg-card-hover: #1a1a1a;
-            --text: #ffffff;
-            --text-muted: #999999;
-            --text-dim: #666666;
-            --border: #222222;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
+            --black: #111111;
+            --red: #CC0000;
+            --bone: #F2EDE4;
+            --grey: #666666;
+            --parchment: #E8DFD0;
+            --dark-parchment: #D4CBBB;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text);
+            font-family: 'Roboto Slab', serif;
+            background: var(--black);
+            color: var(--bone);
             overflow-x: hidden;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
-        h1, h2, h3, h4 {
-            font-family: 'Space Grotesk', sans-serif;
-        }
+        h1, h2, h3 { font-family: 'Permanent Marker', cursive; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
+        /* ── RADIAL MENU ── */
+        .menu-fab {
+            position: fixed; top: 28px; right: 28px; z-index: 2000;
+            width: 56px; height: 56px; border-radius: 50%;
+            background: var(--red); border: 2px solid rgba(255,255,255,0.15);
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: transform 0.3s, background 0.3s;
+            box-shadow: 0 4px 20px rgba(204,0,0,0.4);
         }
+        .menu-fab:hover { transform: scale(1.08); }
+        .menu-fab.open { background: var(--bone); transform: rotate(45deg); }
+        .menu-fab svg { transition: all 0.3s; }
+        .menu-fab.open svg line { stroke: var(--black); }
 
-        /* NAV */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(10, 10, 10, 0.9);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            transition: all 0.3s ease;
+        .radial-overlay {
+            position: fixed; inset: 0; z-index: 1999;
+            background: rgba(17,17,17,0.92);
+            backdrop-filter: blur(6px);
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.4s;
         }
-
-        nav .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 72px;
+        .radial-overlay.open { opacity: 1; pointer-events: all; }
+        .radial-links {
+            position: fixed; top: 28px; right: 28px; z-index: 2001;
         }
-
-        .nav-logo {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
+        .radial-link {
+            position: absolute;
+            opacity: 0; transform: translate(0, 0) scale(0.5);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            pointer-events: none;
         }
-
-        .nav-links {
-            display: flex;
-            gap: 32px;
-            list-style: none;
+        .radial-link.show { opacity: 1; pointer-events: all; }
+        .radial-link a {
+            display: block; padding: 10px 24px;
+            background: var(--red); color: var(--bone);
+            text-decoration: none; font-family: 'Permanent Marker', cursive;
+            font-size: 1rem; border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            white-space: nowrap; transition: background 0.3s;
+            border: 1px dashed rgba(255,255,255,0.2);
         }
+        .radial-link a:hover { background: #aa0000; }
 
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: 8px;
-        }
-
-        .hamburger span {
-            display: block;
-            width: 24px;
-            height: 2px;
-            background: var(--text);
-            transition: all 0.3s;
-        }
-
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -5px);
-        }
-
-        /* HERO */
+        /* ── HERO ── */
         .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            padding: 120px 24px 80px;
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            text-align: center; position: relative;
+            background: var(--black);
+            border-bottom: 3px dashed var(--grey);
+            overflow: hidden;
         }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
-            opacity: 0.12;
-            filter: blur(80px);
+        .sketch-frame {
+            position: absolute; inset: 20px;
+            border: 2px dashed rgba(102,102,102,0.4);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
             pointer-events: none;
         }
-
-        .hero-badge {
-            display: inline-block;
-            padding: 8px 20px;
-            border: 1px solid var(--primary);
-            border-radius: 50px;
-            font-size: 0.85rem;
-            color: var(--primary);
-            margin-bottom: 32px;
-            letter-spacing: 0.5px;
-        }
-
+        .hero-content { position: relative; z-index: 2; padding: 24px; }
+        .hero-icon { margin-bottom: 24px; }
         .hero h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 700;
-            line-height: 1.05;
-            margin-bottom: 24px;
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            line-height: 1.1; margin-bottom: 16px;
+            color: var(--bone);
         }
-
-        .hero h1 .gradient {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
+        .hero h1 span { color: var(--red); }
         .hero p {
-            font-size: 1.15rem;
-            color: var(--text-muted);
-            max-width: 520px;
-            margin: 0 auto 40px;
+            font-size: 1.05rem; color: var(--grey);
+            max-width: 500px; margin: 0 auto 32px;
         }
-
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
+        .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn-sketch {
+            padding: 14px 32px; text-decoration: none; font-weight: 600;
+            font-family: 'Roboto Slab', serif; font-size: 0.95rem;
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            transition: all 0.3s; display: inline-block;
+            border: 2px dashed;
         }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 32px;
-            border-radius: 50px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            cursor: pointer;
-            border: none;
-            font-family: 'Inter', sans-serif;
+        .btn-red {
+            background: var(--red); color: var(--bone); border-color: rgba(255,255,255,0.15);
         }
-
-        .btn-primary {
-            background: var(--primary);
-            color: white;
+        .btn-red:hover { background: #aa0000; transform: rotate(-1deg) scale(1.04); }
+        .btn-ghost {
+            background: transparent; color: var(--bone); border-color: var(--grey);
         }
+        .btn-ghost:hover { border-color: var(--red); color: var(--red); transform: rotate(1deg); }
 
-        .btn-primary:hover {
-            background: var(--primary-light);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(231, 76, 60, 0.3);
+        /* ── INK DRIP ── */
+        .ink-drip-bar { position: relative; height: 60px; overflow: hidden; }
+        .ink-drip-bar svg { width: 100%; height: 100%; display: block; }
+
+        /* ── SERVICES SPLATTER ── */
+        .services-section {
+            background: var(--parchment); color: var(--black);
+            padding: 100px 24px; position: relative;
         }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--text);
-            border: 1px solid var(--border);
-        }
-
-        .btn-outline:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        /* STATS */
-        .stats {
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            padding: 48px 0;
-        }
-
-        .stats .container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-            text-align: center;
-        }
-
-        .stat h3 {
-            font-size: 1.5rem;
-            color: var(--primary);
-            margin-bottom: 6px;
-        }
-
-        .stat p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        /* SECTIONS */
-        section {
-            padding: 100px 0;
-        }
-
-        .section-label {
-            font-size: 0.85rem;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .section-desc {
-            color: var(--text-muted);
-            max-width: 600px;
-            font-size: 1.05rem;
-        }
-
-        /* ABOUT */
-        .about .container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 64px;
-            align-items: center;
-        }
-
-        .about-image {
-            border-radius: 16px;
-            overflow: hidden;
-            aspect-ratio: 4/3;
-        }
-
-        .about-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .about-image:hover img {
-            transform: scale(1.05);
-        }
-
-        /* SERVICES */
+        .services-section .section-wrap { max-width: 1100px; margin: 0 auto; }
+        .services-section h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 48px; color: var(--black); }
         .services-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-top: 48px;
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+        .splatter-card {
+            background: var(--bone); padding: 36px 28px;
+            border: 2px dashed var(--grey);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            transition: all 0.4s; position: relative;
+        }
+        .splatter-card:hover {
+            transform: rotate(-1deg) translateY(-6px);
+            border-color: var(--red);
+            box-shadow: 4px 6px 0 var(--red);
+        }
+        .splatter-card h3 { font-size: 1.3rem; margin-bottom: 6px; color: var(--black); }
+        .splatter-card .price { color: var(--red); font-weight: 700; font-size: 1.1rem; margin-bottom: 10px; }
+        .splatter-card p { color: var(--grey); font-size: 0.9rem; }
+
+        /* ── GALLERY WALL ── */
+        .gallery-section {
+            padding: 100px 24px; position: relative;
+            background: var(--black);
+        }
+        .gallery-section h2 {
+            text-align: center; font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 56px;
+        }
+        .wall-gallery {
+            position: relative; max-width: 1000px; margin: 0 auto;
+            min-height: 600px;
+        }
+        .wall-photo {
+            position: absolute; transition: all 0.4s;
+            box-shadow: 4px 6px 20px rgba(0,0,0,0.6);
+            cursor: pointer;
+            filter: grayscale(100%);
+        }
+        .wall-photo:hover {
+            z-index: 10; transform: scale(1.08) rotate(0deg) !important;
+            filter: grayscale(0%);
+        }
+        .wall-photo img {
+            display: block; width: 100%; height: 100%; object-fit: cover;
+        }
+        .push-pin {
+            position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+            width: 18px; height: 18px; border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #ff4444, #880000);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+            z-index: 2;
         }
 
-        .service-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 32px;
-            transition: all 0.3s;
+        /* ── ABOUT ── */
+        .about-section {
+            padding: 100px 24px;
+            background: var(--black);
         }
-
-        .service-card:hover {
-            background: var(--bg-card-hover);
-            border-color: var(--primary);
-            transform: translateY(-4px);
-        }
-
-        .service-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background: rgba(231, 76, 60, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-        }
-
-        .service-card h3 {
-            font-size: 1.15rem;
-            margin-bottom: 8px;
-        }
-
-        .service-card .price {
-            color: var(--primary);
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
-
-        .service-card p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        /* GALLERY */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            margin-top: 48px;
-        }
-
-        .gallery-item {
-            border-radius: 12px;
+        .about-wrap {
+            max-width: 900px; margin: 0 auto;
             overflow: hidden;
-            aspect-ratio: 1;
         }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
+        .about-image {
+            float: left; shape-outside: circle(50%);
+            width: 260px; height: 260px; border-radius: 50%;
+            overflow: hidden; margin: 0 32px 16px 0;
+            border: 3px dashed var(--grey);
         }
+        .about-image img { width: 100%; height: 100%; object-fit: cover; }
+        .about-wrap h2 { font-size: 2rem; margin-bottom: 16px; }
+        .about-wrap p { color: var(--grey); font-size: 1rem; line-height: 1.8; }
 
-        .gallery-item:hover img {
-            transform: scale(1.1);
+        /* ── REVIEWS ── */
+        .reviews-section {
+            background: #0A0A0A; padding: 100px 24px;
+            border-top: 2px dashed var(--grey);
+            border-bottom: 2px dashed var(--grey);
         }
-
-        /* REVIEWS */
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-top: 48px;
+        .reviews-section .section-wrap { max-width: 1000px; margin: 0 auto; }
+        .reviews-section h2 { text-align: center; font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 48px; }
+        .review-list { display: flex; flex-direction: column; gap: 32px; }
+        .review-item {
+            display: flex; gap: 20px; align-items: flex-start;
+            padding: 28px; position: relative;
+            border-left: 3px solid var(--red);
         }
-
-        .review-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 32px;
+        .review-icon { font-size: 2rem; flex-shrink: 0; }
+        .review-item blockquote {
+            font-style: italic; color: var(--grey);
+            font-size: 1rem; line-height: 1.7;
         }
+        .review-item .author { margin-top: 10px; font-weight: 600; color: var(--bone); font-size: 0.9rem; }
 
-        .review-stars {
-            color: #f1c40f;
-            font-size: 1.1rem;
-            margin-bottom: 16px;
+        /* ── CONTACT ── */
+        .contact-section { padding: 100px 24px; }
+        .contact-wrap {
+            max-width: 800px; margin: 0 auto; text-align: center;
         }
-
-        .review-text {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-            font-style: italic;
+        .contact-wrap h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 16px; }
+        .contact-wrap p { color: var(--grey); margin-bottom: 32px; font-size: 1.05rem; }
+        .contact-details {
+            display: flex; gap: 40px; justify-content: center; flex-wrap: wrap;
+            margin-bottom: 40px;
         }
-
-        .review-author {
-            font-weight: 600;
-            font-size: 0.9rem;
+        .contact-block { text-align: center; }
+        .contact-block .label {
+            font-family: 'Permanent Marker', cursive;
+            color: var(--red); font-size: 0.85rem; margin-bottom: 4px;
         }
-
-        /* CONTACT */
-        .contact .container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 64px;
+        .contact-block .value { color: var(--bone); font-size: 0.95rem; }
+        .contact-block a { color: var(--bone); text-decoration: none; }
+        .contact-block a:hover { color: var(--red); }
+        .map-wrap {
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            overflow: hidden; border: 2px dashed var(--grey);
+            max-width: 800px; margin: 0 auto;
         }
+        .map-wrap iframe { width: 100%; height: 350px; border: none; display: block; }
 
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        .contact-item {
-            display: flex;
-            gap: 16px;
-            align-items: flex-start;
-        }
-
-        .contact-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            background: rgba(231, 76, 60, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            font-size: 1.1rem;
-        }
-
-        .contact-item h4 {
-            font-size: 0.95rem;
-            margin-bottom: 4px;
-        }
-
-        .contact-item p, .contact-item a {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            text-decoration: none;
-        }
-
-        .contact-item a:hover {
-            color: var(--primary);
-        }
-
-        .map-container {
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-        }
-
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            min-height: 400px;
-            border: none;
-        }
-
-        /* CTA */
-        .cta {
-            text-align: center;
-            position: relative;
-        }
-
-        .cta::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
-            opacity: 0.08;
-            filter: blur(80px);
-            pointer-events: none;
-        }
-
-        .cta .section-title {
-            font-size: clamp(2rem, 4vw, 3.5rem);
-        }
-
-        .cta p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            max-width: 500px;
-            margin: 0 auto 32px;
-        }
-
-        /* FOOTER */
+        /* ── FOOTER ── */
         footer {
-            border-top: 1px solid var(--border);
-            padding: 48px 0;
-            text-align: center;
+            text-align: center; padding: 40px 24px;
+            border-top: 2px dashed rgba(102,102,102,0.3);
         }
+        footer p { color: rgba(242,237,228,0.4); font-size: 0.82rem; }
+        footer a { color: var(--red); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
 
-        footer p {
-            color: var(--text-dim);
-            font-size: 0.85rem;
-        }
-
-        footer a {
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* ANIMATIONS */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
+        /* ── SCROLL REVEAL ── */
+        .reveal {
+            opacity: 0; transform: translateY(30px);
             transition: opacity 0.6s ease, transform 0.6s ease;
         }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-rotate {
+            opacity: 0; transform: translateY(30px) rotate(var(--rot, -2deg));
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
+        .reveal-rotate.visible { opacity: 1; transform: translateY(0) rotate(var(--rot, 0deg)); }
 
-        /* MOBILE */
+        /* ── MOBILE ── */
         @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
+            .services-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
+            .about-image {
+                float: none; shape-outside: none;
+                margin: 0 auto 24px; display: block;
             }
-
-            .nav-links {
-                position: fixed;
-                top: 72px;
-                left: 0;
-                right: 0;
-                background: rgba(10, 10, 10, 0.98);
-                flex-direction: column;
-                padding: 24px;
-                gap: 20px;
-                transform: translateY(-100%);
-                opacity: 0;
-                pointer-events: none;
-                transition: all 0.3s;
-                border-bottom: 1px solid var(--border);
-            }
-
-            .nav-links.active {
-                transform: translateY(0);
-                opacity: 1;
-                pointer-events: all;
-            }
-
-            .about .container,
-            .contact .container {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .services-grid,
-            .reviews-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .stats .container {
-                grid-template-columns: 1fr;
-                gap: 24px;
-            }
-
-            .hero {
-                padding: 120px 24px 60px;
-            }
+            .about-wrap { text-align: center; }
+            .wall-gallery { min-height: 500px; }
+            .contact-details { flex-direction: column; gap: 20px; }
+            .sketch-frame { inset: 10px; }
         }
 
         @media (max-width: 1024px) and (min-width: 769px) {
-            .services-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
 <body>
-    <!-- NAV -->
-    <nav>
-        <div class="container">
-            <a href="#" class="nav-logo">Southern Inkz</a>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#gallery">Gallery</a></li>
-                <li><a href="#reviews">Reviews</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <button class="hamburger" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
+
+    <!-- RADIAL MENU -->
+    <button class="menu-fab" id="menuFab" aria-label="Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F2EDE4" stroke-width="2.5" stroke-linecap="round">
+            <line x1="4" y1="8" x2="20" y2="8"/>
+            <line x1="4" y1="16" x2="20" y2="16"/>
+        </svg>
+    </button>
+    <div class="radial-overlay" id="radialOverlay"></div>
+    <div class="radial-links" id="radialLinks">
+        <div class="radial-link" data-x="-70" data-y="60"><a href="#services">Services</a></div>
+        <div class="radial-link" data-x="-140" data-y="120"><a href="#gallery">Gallery</a></div>
+        <div class="radial-link" data-x="-70" data-y="180"><a href="#about">About</a></div>
+        <div class="radial-link" data-x="-140" data-y="240"><a href="#reviews">Reviews</a></div>
+        <div class="radial-link" data-x="-70" data-y="300"><a href="#contact">Contact</a></div>
+        <div class="radial-link" data-x="-160" data-y="60"><a href="https://www.facebook.com/southerninkz/" target="_blank" rel="noopener">Facebook</a></div>
+    </div>
 
     <!-- HERO -->
     <section class="hero">
-        <div>
-            <div class="hero-badge">Custom Designs Available</div>
-            <h1>Your Vision,<br><span class="gradient">Our Ink</span></h1>
-            <p>Wellingborough's premier tattoo and piercing studio. Expert artists bringing your ideas to life on Queen Street.</p>
+        <div class="sketch-frame"></div>
+        <div class="hero-content">
+            <div class="hero-icon">
+                <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                    <path d="M32 8L36 28L44 18L38 30L52 26L40 34L56 40L38 38L44 52L34 40L32 56L30 40L20 52L26 38L8 40L24 34L12 26L26 30L20 18L28 28Z" fill="none" stroke="#CC0000" stroke-width="1.5"/>
+                    <circle cx="32" cy="32" r="6" fill="#CC0000"/>
+                </svg>
+            </div>
+            <h1>Your Vision,<br><span>Our Ink</span></h1>
+            <p>Wellingborough's premier tattoo and piercing studio. Expert artists, all styles, spotless studio.</p>
             <div class="hero-buttons">
-                <a href="tel:01933278536" class="btn btn-primary">Book Now</a>
-                <a href="https://www.facebook.com/southerninkz/" target="_blank" rel="noopener" class="btn btn-outline">Follow Us</a>
+                <a href="tel:01933278536" class="btn-sketch btn-red">Book Consultation</a>
+                <a href="https://www.facebook.com/southerninkz/" target="_blank" rel="noopener" class="btn-sketch btn-ghost">Follow Us</a>
             </div>
         </div>
     </section>
 
-    <!-- STATS -->
-    <div class="stats">
-        <div class="container">
-            <div class="stat fade-in">
-                <h3>Expert Artists</h3>
-                <p>Skilled & Experienced</p>
-            </div>
-            <div class="stat fade-in">
-                <h3>1000s</h3>
-                <p>Of Tattoos Done</p>
-            </div>
-            <div class="stat fade-in">
-                <h3>All Styles</h3>
-                <p>Welcome</p>
-            </div>
-        </div>
+    <!-- INK DRIP -->
+    <div class="ink-drip-bar">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+            <path d="M0,0 L0,20 Q60,20 60,40 Q60,60 80,60 Q100,60 100,40 Q100,20 160,20 L160,35 Q160,55 180,55 Q200,55 200,35 L200,20 Q300,20 300,30 Q300,50 320,50 Q340,50 340,30 Q340,20 500,20 Q500,20 500,45 Q500,60 520,60 Q540,60 540,45 L540,20 Q700,20 700,20 L700,25 Q700,50 720,50 Q740,50 740,25 L740,20 Q900,20 900,35 Q900,55 920,55 Q940,55 940,35 Q940,20 1100,20 L1100,40 Q1100,58 1120,58 Q1140,58 1140,40 L1140,20 Q1300,20 1300,20 L1440,20 L1440,0 Z" fill="#111111"/>
+        </svg>
     </div>
 
-    <!-- ABOUT -->
-    <section class="about" id="about">
-        <div class="container">
-            <div class="fade-in">
-                <div class="section-label">About Us</div>
-                <h2 class="section-title">Wellingborough's Go-To Tattoo Studio</h2>
-                <p class="section-desc">Southern Inkz is Wellingborough's go-to tattoo and piercing studio on Queen Street. From custom designs and cover-ups to full sleeves and mini tattoos, our experienced artists bring your ideas to life. We also offer professional piercings in a clean, sterile environment.</p>
-            </div>
-            <div class="about-image fade-in">
-                <img src="https://images.unsplash.com/photo-1598371839696-5c5bb1c12e38?w=800" alt="Tattoo artist at work" loading="lazy">
-            </div>
-        </div>
-    </section>
-
     <!-- SERVICES -->
-    <section class="services" id="services">
-        <div class="container">
-            <div class="section-label fade-in">Our Services</div>
-            <h2 class="section-title fade-in">What We Offer</h2>
-            <p class="section-desc fade-in">From mini tattoos to full sleeves, and professional piercings.</p>
+    <section class="services-section" id="services">
+        <div class="section-wrap">
+            <h2 class="reveal">What We Do</h2>
             <div class="services-grid">
-                <div class="service-card fade-in">
-                    <div class="service-icon">&#9997;</div>
+                <div class="splatter-card reveal-rotate" style="--rot: -1.5deg;">
                     <h3>Custom Tattoo</h3>
                     <div class="price">From &pound;60/hr</div>
                     <p>Bespoke designs created to your exact vision by our experienced artists.</p>
                 </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">&#10022;</div>
+                <div class="splatter-card reveal-rotate" style="--rot: 1deg;">
                     <h3>Mini Tattoo</h3>
                     <div class="price">From &pound;30</div>
-                    <p>Small, delicate designs perfect for your first tattoo or a subtle addition.</p>
+                    <p>Small, delicate designs perfect for a first tattoo or subtle addition.</p>
                 </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">&#128260;</div>
+                <div class="splatter-card reveal-rotate" style="--rot: -0.8deg;">
                     <h3>Cover Up</h3>
-                    <div class="price">Consultation Required</div>
-                    <p>Transform old or unwanted ink into something you'll love with a skilled cover-up.</p>
+                    <div class="price">Consultation</div>
+                    <p>Transform old or unwanted ink into something you'll love.</p>
                 </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">&#128170;</div>
+                <div class="splatter-card reveal-rotate" style="--rot: 1.5deg;">
                     <h3>Full Sleeve</h3>
-                    <div class="price">Consultation Required</div>
-                    <p>Full arm or leg sleeves designed and executed with precision over multiple sessions.</p>
+                    <div class="price">Consultation</div>
+                    <p>Full arm or leg sleeves designed with precision over multiple sessions.</p>
                 </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">&#128142;</div>
+                <div class="splatter-card reveal-rotate" style="--rot: -1deg;">
                     <h3>Ear Piercing</h3>
                     <div class="price">From &pound;20</div>
-                    <p>Professional ear piercings including lobe, helix, tragus, and more.</p>
+                    <p>Professional ear piercings: lobe, helix, tragus, and more.</p>
                 </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">&#10023;</div>
+                <div class="splatter-card reveal-rotate" style="--rot: 0.5deg;">
                     <h3>Body Piercing</h3>
                     <div class="price">From &pound;25</div>
                     <p>Safe, sterile body piercings including nose, navel, eyebrow, and more.</p>
@@ -712,143 +369,160 @@
         </div>
     </section>
 
-    <!-- GALLERY -->
-    <section class="gallery" id="gallery">
-        <div class="container">
-            <div class="section-label fade-in">Gallery</div>
-            <h2 class="section-title fade-in">Our Work</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item fade-in">
-                    <img src="https://images.unsplash.com/photo-1598371839696-5c5bb1c12e38?w=800" alt="Tattoo artist" loading="lazy">
-                </div>
-                <div class="gallery-item fade-in">
-                    <img src="https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=800" alt="Tattoo" loading="lazy">
-                </div>
-                <div class="gallery-item fade-in">
-                    <img src="https://images.unsplash.com/photo-1590246814883-57764a8db0d6?w=800" alt="Tattoo studio" loading="lazy">
-                </div>
-                <div class="gallery-item fade-in">
-                    <img src="https://images.unsplash.com/photo-1562962230-16e4623d36e6?w=800" alt="Tattoo art" loading="lazy">
-                </div>
+    <!-- GALLERY WALL -->
+    <section class="gallery-section" id="gallery">
+        <h2 class="reveal">Our Work</h2>
+        <div class="wall-gallery" id="wallGallery">
+            <div class="wall-photo" style="width:280px;height:320px;top:10px;left:5%;transform:rotate(-3deg);">
+                <div class="push-pin"></div>
+                <img src="https://images.unsplash.com/photo-1598371839696-5c5bb1c12e38?w=800" alt="Tattoo artist at work" loading="lazy">
+            </div>
+            <div class="wall-photo" style="width:250px;height:280px;top:30px;left:35%;transform:rotate(2deg);">
+                <div class="push-pin"></div>
+                <img src="https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=800" alt="Tattoo detail" loading="lazy">
+            </div>
+            <div class="wall-photo" style="width:300px;height:250px;top:0;right:5%;transform:rotate(-1.5deg);">
+                <div class="push-pin"></div>
+                <img src="https://images.unsplash.com/photo-1590246814883-57764a8db0d6?w=800" alt="Tattoo studio" loading="lazy">
+            </div>
+            <div class="wall-photo" style="width:260px;height:300px;top:300px;left:20%;transform:rotate(3.5deg);">
+                <div class="push-pin"></div>
+                <img src="https://images.unsplash.com/photo-1562962230-16e4623d36e6?w=800" alt="Tattoo art" loading="lazy">
             </div>
         </div>
     </section>
 
+    <!-- ABOUT -->
+    <section class="about-section" id="about">
+        <div class="about-wrap reveal">
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1598371839696-5c5bb1c12e38?w=800" alt="Southern Inkz studio">
+            </div>
+            <h2>About the Studio</h2>
+            <p>Southern Inkz is Wellingborough's go-to tattoo and piercing studio, located on Queen Street. Our experienced artists specialise in every style from fine line and realism to traditional and Japanese. We pride ourselves on creating a welcoming, clean, and sterile environment where your ideas come to life in ink. Whether it's your first tattoo or your fiftieth, we treat every piece with the same care and attention. Walk-ins are welcome, but booking a consultation ensures dedicated time for your vision.</p>
+        </div>
+    </section>
+
     <!-- REVIEWS -->
-    <section class="reviews" id="reviews">
-        <div class="container">
-            <div class="section-label fade-in">Reviews</div>
-            <h2 class="section-title fade-in">What Our Clients Say</h2>
-            <div class="reviews-grid">
-                <div class="review-card fade-in">
-                    <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <p class="review-text">"Incredible custom work! I came in with a rough idea and they turned it into something beyond what I imagined. Absolutely love my new piece."</p>
-                    <div class="review-author">Ryan K.</div>
+    <section class="reviews-section" id="reviews">
+        <div class="section-wrap">
+            <h2 class="reveal">Client Words</h2>
+            <div class="review-list">
+                <div class="review-item reveal">
+                    <div class="review-icon">&#9733;</div>
+                    <div>
+                        <blockquote>"Incredible custom work! I came in with a rough idea and they turned it into something beyond what I imagined. Absolutely love my new piece."</blockquote>
+                        <div class="author">Ryan K.</div>
+                    </div>
                 </div>
-                <div class="review-card fade-in">
-                    <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <p class="review-text">"Really clean studio and you can tell they take hygiene seriously. Felt comfortable and safe throughout the entire session. Highly recommend."</p>
-                    <div class="review-author">Emma L.</div>
+                <div class="review-item reveal">
+                    <div class="review-icon">&#9829;</div>
+                    <div>
+                        <blockquote>"Really clean studio and you can tell they take hygiene seriously. Felt comfortable and safe throughout the entire session."</blockquote>
+                        <div class="author">Emma L.</div>
+                    </div>
                 </div>
-                <div class="review-card fade-in">
-                    <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <p class="review-text">"The artists really listen to what you want. They took my idea, refined it, and the finished tattoo was perfect. Will definitely be going back."</p>
-                    <div class="review-author">Chris P.</div>
+                <div class="review-item reveal">
+                    <div class="review-icon">&#9889;</div>
+                    <div>
+                        <blockquote>"The artists really listen to what you want. They took my idea, refined it, and the finished tattoo was perfect. Will definitely be going back."</blockquote>
+                        <div class="author">Chris P.</div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- CONTACT -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <div>
-                <div class="section-label fade-in">Get In Touch</div>
-                <h2 class="section-title fade-in">Visit the Studio</h2>
-                <div class="contact-info fade-in" style="margin-top:32px;">
-                    <div class="contact-item">
-                        <div class="contact-icon">&#128205;</div>
-                        <div>
-                            <h4>Address</h4>
-                            <p>52 Queen Street, Wellingborough NN8 4JP</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">&#128222;</div>
-                        <div>
-                            <h4>Phone</h4>
-                            <a href="tel:01933278536">01933 278536</a>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">&#128336;</div>
-                        <div>
-                            <h4>Opening Hours</h4>
-                            <p>Mon &ndash; Sat: 10:00 &ndash; 18:00<br>Sun: By Appointment</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">&#128101;</div>
-                        <div>
-                            <h4>Facebook</h4>
-                            <a href="https://www.facebook.com/southerninkz/" target="_blank" rel="noopener">facebook.com/southerninkz</a>
-                        </div>
-                    </div>
+    <section class="contact-section" id="contact">
+        <div class="contact-wrap">
+            <h2 class="reveal">Get Inked</h2>
+            <p class="reveal">Book a consultation or walk in. We'd love to bring your vision to life.</p>
+            <div class="contact-details reveal">
+                <div class="contact-block">
+                    <div class="label">Address</div>
+                    <div class="value">52 Queen Street, Wellingborough NN8 4JP</div>
+                </div>
+                <div class="contact-block">
+                    <div class="label">Phone</div>
+                    <div class="value"><a href="tel:01933278536">01933 278536</a></div>
+                </div>
+                <div class="contact-block">
+                    <div class="label">Hours</div>
+                    <div class="value">Mon-Sat 10:00-18:00 | Sun By Appt</div>
+                </div>
+                <div class="contact-block">
+                    <div class="label">Facebook</div>
+                    <div class="value"><a href="https://www.facebook.com/southerninkz/" target="_blank" rel="noopener">@southerninkz</a></div>
                 </div>
             </div>
-            <div class="map-container fade-in">
-                <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Southern+Inkz+52+Queen+Street+Wellingborough+NN8+4JP" allowfullscreen loading="lazy"></iframe>
+            <div class="hero-buttons reveal">
+                <a href="tel:01933278536" class="btn-sketch btn-red">Call Now</a>
+                <a href="https://www.facebook.com/southerninkz/" target="_blank" rel="noopener" class="btn-sketch btn-ghost">Message on Facebook</a>
             </div>
-        </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="cta">
-        <div class="container">
-            <h2 class="section-title fade-in">Ready to Get Inked?</h2>
-            <p class="fade-in">Book a consultation today and let our artists bring your vision to life.</p>
-            <div class="fade-in" style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
-                <a href="tel:01933278536" class="btn btn-primary">Call 01933 278536</a>
-                <a href="https://www.facebook.com/southerninkz/" target="_blank" rel="noopener" class="btn btn-outline">Message on Facebook</a>
+            <div class="map-wrap reveal" style="margin-top: 48px;">
+                <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Southern+Inkz+52+Queen+Street+Wellingborough+NN8+4JP" allowfullscreen loading="lazy"></iframe>
             </div>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
-        <div class="container">
-            <p>&copy; 2026 Southern Inkz Tattoo Studio. All rights reserved.</p>
-            <p style="margin-top:8px;">Built by <a href="https://twix.tf" target="_blank" rel="noopener">Harry</a></p>
-        </div>
+        <p>&copy; 2026 Southern Inkz Tattoo Studio. All rights reserved.</p>
+        <p style="margin-top:8px;">Built by <a href="https://twix.tf" target="_blank" rel="noopener">Harry</a></p>
     </footer>
 
     <script>
-        // Hamburger menu
-        const hamburger = document.querySelector('.hamburger');
-        const navLinks = document.querySelector('.nav-links');
+        // ── Radial Menu ──
+        (function() {
+            const fab = document.getElementById('menuFab');
+            const overlay = document.getElementById('radialOverlay');
+            const links = document.querySelectorAll('.radial-link');
+            let open = false;
 
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navLinks.classList.toggle('active');
-        });
+            function toggle() {
+                open = !open;
+                fab.classList.toggle('open', open);
+                overlay.classList.toggle('open', open);
+                links.forEach((link, i) => {
+                    setTimeout(() => {
+                        if (open) {
+                            link.classList.add('show');
+                            link.style.transform = 'translate(' + link.dataset.x + 'px, ' + link.dataset.y + 'px) scale(1)';
+                        } else {
+                            link.classList.remove('show');
+                            link.style.transform = 'translate(0, 0) scale(0.5)';
+                        }
+                    }, open ? i * 60 : 0);
+                });
+            }
 
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navLinks.classList.remove('active');
+            fab.addEventListener('click', toggle);
+            overlay.addEventListener('click', () => { if (open) toggle(); });
+            links.forEach(l => l.querySelector('a').addEventListener('click', () => { if (open) toggle(); }));
+        })();
+
+        // ── Parallax on Gallery Wall ──
+        (function() {
+            const gallery = document.getElementById('wallGallery');
+            if (!gallery) return;
+            const photos = gallery.querySelectorAll('.wall-photo');
+            document.addEventListener('mousemove', (e) => {
+                const cx = (e.clientX / window.innerWidth - 0.5) * 2;
+                const cy = (e.clientY / window.innerHeight - 0.5) * 2;
+                photos.forEach((photo, i) => {
+                    const depth = (i % 3 + 1) * 4;
+                    photo.style.marginLeft = (cx * depth) + 'px';
+                    photo.style.marginTop = (cy * depth) + 'px';
+                });
             });
-        });
+        })();
 
-        // Scroll animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
+        // ── Scroll Reveal ──
+        const revealObs = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
         }, { threshold: 0.1 });
-
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        document.querySelectorAll('.reveal, .reveal-rotate').forEach(el => revealObs.observe(el));
     </script>
 </body>
 </html>
