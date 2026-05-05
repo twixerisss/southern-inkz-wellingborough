@@ -3,306 +3,841 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Southern Inkz Tattoo Studio — Wellingborough Tattoo &amp; Piercing</title>
-    <meta name="description" content="Southern Inkz — Tattoo & Piercing Studio in Wellingborough. Custom designs, cover-ups, full sleeves, and professional piercings on Queen Street.">
+    <title>Southern Inkz — Tattoo &amp; Piercing Studio · Wellingborough</title>
+    <meta name="description" content="Southern Inkz — Tattoo &amp; Piercing Studio on Queen Street, Wellingborough. Custom ink, cover-ups, sleeves, and professional piercings.">
+    <meta name="theme-color" content="#0c0a08">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=Monsieur+La+Doulaise&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
     <style>
-        :root {
-            --primary: #CC0000;
-            --primary-light: #FF3333;
-            --primary-rgb: 204,0,0;
-            --bg: #000000;
-            --bg-raised: #0a0a0a;
-            --text: #ffffff;
-            --text-secondary: #999999;
-            --text-muted: #666666;
-            --border: rgba(255,255,255,0.08);
-            --border-strong: rgba(255,255,255,0.15);
+        :root{
+            --ink:#0c0a08;
+            --ink-2:#15110d;
+            --ink-3:#1d1813;
+            --bone:#ece2cf;
+            --bone-dim:#c8bda7;
+            --bone-mute:#7a6f5d;
+            --blood:#b41e1e;
+            --blood-deep:#7a0f0f;
+            --blood-glow:rgba(180,30,30,0.35);
+            --line:rgba(236,226,207,0.12);
+            --line-strong:rgba(236,226,207,0.28);
         }
         *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+        ::selection{background:var(--blood);color:var(--bone);}
         html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;}
-        body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;}
+        body{
+            font-family:'Fraunces',Georgia,serif;
+            background:var(--ink);
+            color:var(--bone);
+            line-height:1.6;
+            overflow-x:hidden;
+            font-feature-settings:"ss01","ss02";
+        }
+        body::before{
+            content:'';position:fixed;inset:0;pointer-events:none;z-index:1;mix-blend-mode:overlay;opacity:0.35;
+            background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.05  0 0 0 0 0.04  0 0 0 0 0.03  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+        }
+        body::after{
+            content:'';position:fixed;inset:0;pointer-events:none;z-index:2;
+            background:radial-gradient(ellipse at 50% 0%,transparent 0%,rgba(0,0,0,0.4) 100%);
+        }
 
-        nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 2rem;height:70px;display:flex;align-items:center;justify-content:space-between;transition:all 0.4s;}
-        nav.scrolled{background:rgba(0,0,0,0.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
-        .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--text);text-decoration:none;letter-spacing:0.05em;}
-        .nav-logo span{color:var(--primary);}
-        .nav-links{display:flex;gap:2rem;list-style:none;}
-        .nav-links a{color:var(--text-muted);text-decoration:none;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.15em;transition:color 0.3s;}
-        .nav-links a:hover{color:var(--primary);}
-        .nav-cta{background:var(--primary);color:#fff;padding:0.55rem 1.5rem;text-decoration:none;font-weight:700;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;transition:all 0.3s;}
-        .nav-cta:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(var(--primary-rgb),0.4);}
-        .menu-toggle{display:none;background:none;border:1px solid var(--border);color:var(--text);font-size:1.1rem;cursor:pointer;width:44px;height:44px;align-items:center;justify-content:center;}
+        .display{font-family:'Boldonse',Impact,sans-serif;font-weight:400;letter-spacing:-0.01em;}
+        .script{font-family:'Monsieur La Doulaise',cursive;font-weight:400;}
+        .mono{font-family:'JetBrains Mono',monospace;}
+        .serif-i{font-family:'Fraunces',serif;font-style:italic;}
 
-        .hero{min-height:100vh;display:flex;align-items:flex-end;position:relative;padding:0 3rem 5rem;overflow:hidden;}
-        .hero-bg{position:absolute;inset:0;background:var(--bg-raised);}
-        .hero-bg img{width:100%;height:100%;object-fit:cover;opacity:0.35;}
-        .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,var(--bg) 0%,transparent 50%,rgba(0,0,0,0.3) 100%);}
-        .hero-content{position:relative;z-index:2;max-width:900px;}
-        .hero-tag{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.25em;color:var(--primary);font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem;}
-        .hero-tag::before{content:'';width:40px;height:2px;background:var(--primary);}
-        .hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,10vw,8rem);line-height:0.9;letter-spacing:0.02em;margin-bottom:1.5rem;}
-        .hero h1 span{color:var(--primary);}
-        .hero p{font-size:1rem;color:var(--text-secondary);max-width:480px;line-height:1.7;margin-bottom:2.5rem;}
-        .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
-        .btn-solid{background:var(--primary);color:#fff;padding:0.85rem 2.5rem;text-decoration:none;font-weight:700;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.1em;transition:all 0.3s;border:none;cursor:pointer;}
-        .btn-solid:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(var(--primary-rgb),0.35);}
-        .btn-outline{background:transparent;color:var(--text);padding:0.85rem 2.5rem;text-decoration:none;font-weight:700;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.1em;border:1px solid var(--border-strong);transition:all 0.3s;}
-        .btn-outline:hover{border-color:var(--primary);color:var(--primary);}
+        .red{color:var(--blood);}
 
-        .stats-row{display:flex;justify-content:flex-start;gap:3rem;padding:3rem;border-bottom:1px solid var(--border);}
-        .stat-unit{display:flex;align-items:baseline;gap:0.5rem;}
-        .stat-big{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--primary);}
-        .stat-txt{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);font-weight:600;}
+        /* ========= NAV ========= */
+        nav{
+            position:fixed;top:0;left:0;right:0;z-index:50;
+            padding:1.1rem 2rem;display:flex;align-items:center;justify-content:space-between;
+            transition:background 0.4s,padding 0.4s,border 0.4s;
+            border-bottom:1px solid transparent;
+        }
+        nav.scrolled{background:rgba(12,10,8,0.85);backdrop-filter:blur(14px) saturate(140%);border-bottom-color:var(--line);padding:0.7rem 2rem;}
+        .nav-logo{display:flex;align-items:center;gap:0.7rem;text-decoration:none;color:var(--bone);}
+        .nav-logo svg{width:28px;height:28px;}
+        .nav-logo .word{font-family:'Boldonse',sans-serif;font-size:1.05rem;letter-spacing:0.18em;text-transform:uppercase;}
+        .nav-logo .word span{color:var(--blood);}
+        .nav-links{display:flex;gap:2.2rem;list-style:none;align-items:center;}
+        .nav-links a{
+            color:var(--bone-dim);text-decoration:none;font-family:'JetBrains Mono',monospace;
+            font-size:0.72rem;text-transform:uppercase;letter-spacing:0.2em;font-weight:500;
+            transition:color 0.3s;position:relative;padding:0.2rem 0;
+        }
+        .nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--blood);transition:width 0.4s cubic-bezier(0.7,0,0.3,1);}
+        .nav-links a:hover{color:var(--bone);}
+        .nav-links a:hover::after{width:100%;}
+        .nav-cta{
+            background:var(--blood);color:var(--bone);text-decoration:none;
+            font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:500;
+            text-transform:uppercase;letter-spacing:0.2em;padding:0.7rem 1.3rem;
+            border:1px solid var(--blood);transition:all 0.3s;display:inline-flex;align-items:center;gap:0.5rem;
+        }
+        .nav-cta:hover{background:transparent;color:var(--blood);}
+        .menu-toggle{display:none;background:none;border:1px solid var(--line-strong);color:var(--bone);width:40px;height:40px;cursor:pointer;align-items:center;justify-content:center;}
 
-        section{padding:6rem 3rem;}
-        .container{max-width:1100px;margin:0 auto;}
-        .sec-tag{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.25em;color:var(--primary);font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem;}
-        .sec-tag::before{content:'';width:30px;height:2px;background:var(--primary);}
-        .sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.5rem);letter-spacing:0.02em;margin-bottom:0.5rem;}
-        .sec-desc{color:var(--text-secondary);font-size:0.95rem;max-width:500px;line-height:1.7;}
+        /* ========= HERO ========= */
+        .hero{
+            min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:flex-end;
+            padding:8rem 2.5rem 0;overflow:hidden;
+        }
+        .hero-bg{position:absolute;inset:0;z-index:0;}
+        .hero-bg img{width:100%;height:100%;object-fit:cover;opacity:0.32;filter:contrast(1.15) saturate(0.6) brightness(0.75);}
+        .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,10,8,0.6) 0%,transparent 30%,rgba(12,10,8,0.5) 70%,var(--ink) 100%);}
+        .hero-bg::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 30%,var(--blood-glow) 0%,transparent 50%);mix-blend-mode:screen;}
 
-        .about-wrap{position:relative;margin-top:3rem;}
-        .about-img{width:100%;aspect-ratio:16/7;overflow:hidden;background:var(--bg-raised);}
-        .about-img img{width:100%;height:100%;object-fit:cover;opacity:0.5;filter:grayscale(40%);}
-        .about-panel{position:absolute;bottom:-2rem;right:3rem;background:var(--bg);border:1px solid var(--border);padding:2.5rem;max-width:500px;}
-        .about-panel h3{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.03em;margin-bottom:0.75rem;}
-        .about-panel p{color:var(--text-secondary);font-size:0.9rem;line-height:1.7;margin-bottom:0.75rem;}
+        .hero-meta{
+            position:relative;z-index:3;display:flex;justify-content:space-between;align-items:flex-start;
+            margin-bottom:auto;padding-top:1rem;font-family:'JetBrains Mono',monospace;
+            font-size:0.7rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--bone-mute);
+        }
+        .hero-meta .ml{display:flex;gap:2rem;}
+        .hero-meta .ml span:first-child{color:var(--blood);}
 
-        .services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin-top:3rem;background:var(--border);}
-        .svc-block{background:var(--bg);padding:2.5rem;position:relative;transition:all 0.3s;}
-        .svc-block:hover{background:var(--bg-raised);}
-        .svc-num{font-family:'Bebas Neue',sans-serif;font-size:4rem;color:rgba(var(--primary-rgb),0.1);position:absolute;top:0.5rem;right:1rem;line-height:1;}
-        .svc-block h3{font-size:1.05rem;font-weight:600;margin-bottom:0.4rem;}
-        .svc-block p{color:var(--text-secondary);font-size:0.85rem;line-height:1.6;}
-        .svc-price{color:var(--primary);font-weight:700;font-size:0.9rem;margin-top:0.75rem;display:inline-block;}
+        .hero-content{position:relative;z-index:3;max-width:1400px;}
+        .hero-tag{
+            font-family:'JetBrains Mono',monospace;font-size:0.72rem;
+            text-transform:uppercase;letter-spacing:0.3em;color:var(--blood);
+            margin-bottom:1.5rem;display:inline-flex;align-items:center;gap:0.85rem;
+        }
+        .hero-tag::before{content:'';width:32px;height:1px;background:var(--blood);}
+        .hero h1{
+            font-family:'Boldonse',Impact,sans-serif;
+            font-size:clamp(4rem,15vw,13rem);line-height:0.85;letter-spacing:-0.02em;
+            margin-bottom:1.5rem;text-transform:uppercase;
+        }
+        .hero h1 .row{display:block;}
+        .hero h1 .row.indent{padding-left:clamp(2rem,18vw,16rem);}
+        .hero h1 em{font-family:'Fraunces',serif;font-style:italic;font-weight:500;text-transform:none;color:var(--bone-dim);letter-spacing:-0.01em;}
+        .hero h1 .red{color:var(--blood);}
+        .hero h1 .underline-mark{position:relative;display:inline-block;}
+        .hero h1 .underline-mark::after{content:'';position:absolute;left:-2%;right:-2%;bottom:0.05em;height:0.18em;background:var(--blood);z-index:-1;opacity:0.85;}
 
-        .gallery-full{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:3px;margin-top:3rem;}
-        .gal-item{aspect-ratio:1;overflow:hidden;background:var(--bg-raised);position:relative;}
-        .gal-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s,filter 0.5s;filter:grayscale(30%);}
-        .gal-item:hover img{transform:scale(1.08);filter:grayscale(0%);}
+        .hero-bottom{display:grid;grid-template-columns:1fr auto 1fr;gap:3rem;align-items:end;padding:2.5rem 0 4rem;border-top:1px solid var(--line);margin-top:3rem;}
+        .hero-lede{max-width:380px;font-size:0.95rem;color:var(--bone-dim);line-height:1.7;}
+        .hero-lede::before{content:'¶';font-family:'Fraunces',serif;color:var(--blood);font-size:1.4rem;display:block;margin-bottom:0.4rem;}
+        .hero-btns{display:flex;gap:0.9rem;flex-wrap:wrap;justify-self:end;}
+        .hero-icon{justify-self:center;}
+        .hero-icon svg{width:46px;height:46px;color:var(--blood);opacity:0.85;}
 
-        .reviews-flex{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:3rem;}
-        .rev-card{border:1px solid var(--border);padding:2rem;position:relative;transition:border-color 0.3s;}
-        .rev-card:hover{border-color:rgba(var(--primary-rgb),0.3);}
-        .rev-card .big-q{font-family:'Bebas Neue',sans-serif;font-size:5rem;color:rgba(var(--primary-rgb),0.15);position:absolute;top:-0.5rem;left:1rem;line-height:1;}
-        .rev-stars{color:#f59e0b;font-size:0.85rem;margin-bottom:1rem;}
-        .rev-text{color:var(--text-secondary);font-size:0.88rem;line-height:1.75;margin-bottom:1rem;position:relative;}
-        .rev-name{font-weight:600;font-size:0.85rem;}
-        .rev-from{color:var(--text-muted);font-size:0.7rem;text-transform:uppercase;letter-spacing:0.06em;}
+        .btn{
+            display:inline-flex;align-items:center;gap:0.7rem;
+            font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:500;
+            text-transform:uppercase;letter-spacing:0.18em;text-decoration:none;cursor:pointer;
+            padding:1rem 1.6rem;border:1px solid;transition:all 0.35s cubic-bezier(0.7,0,0.3,1);
+            position:relative;overflow:hidden;
+        }
+        .btn-solid{background:var(--blood);color:var(--bone);border-color:var(--blood);}
+        .btn-solid:hover{background:var(--blood-deep);border-color:var(--blood-deep);transform:translateY(-2px);box-shadow:0 12px 30px -10px var(--blood-glow);}
+        .btn-ghost{background:transparent;color:var(--bone);border-color:var(--line-strong);}
+        .btn-ghost:hover{border-color:var(--bone);color:var(--bone);}
+        .btn .arr{transition:transform 0.35s cubic-bezier(0.7,0,0.3,1);}
+        .btn:hover .arr{transform:translateX(4px);}
 
-        .contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:3rem;background:var(--border);border:1px solid var(--border);}
-        .contact-pane{background:var(--bg);padding:2.5rem;}
-        .contact-pane h3{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:0.03em;margin-bottom:1.5rem;}
-        .h-tbl{width:100%;border-collapse:collapse;}
-        .h-tbl tr{border-bottom:1px solid var(--border);}
-        .h-tbl tr:last-child{border-bottom:none;}
-        .h-tbl td{padding:0.6rem 0;font-size:0.88rem;}
-        .h-tbl td:first-child{font-weight:500;}
-        .h-tbl td:last-child{text-align:right;color:var(--text-secondary);}
-        .ct-info{display:flex;flex-direction:column;gap:1.25rem;}
-        .ct-row{display:flex;align-items:center;gap:1rem;}
-        .ct-ico{width:44px;height:44px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
-        .ct-lbl{font-size:0.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;}
-        .ct-v{font-weight:500;font-size:0.9rem;}
-        .ct-v a{color:var(--text);text-decoration:none;transition:color 0.2s;}
-        .ct-v a:hover{color:var(--primary);}
-        .map-box{margin-top:2rem;height:300px;overflow:hidden;border:1px solid var(--border);}
-        .map-box iframe{width:100%;height:100%;border:0;filter:invert(90%) hue-rotate(180deg) brightness(0.8) contrast(1.3) saturate(0.15);}
+        /* ========= MARQUEE ========= */
+        .marquee{
+            border-top:1px solid var(--line-strong);border-bottom:1px solid var(--line-strong);
+            background:var(--ink-2);overflow:hidden;padding:1.4rem 0;position:relative;
+        }
+        .marquee-track{display:flex;gap:3rem;width:max-content;animation:scroll 40s linear infinite;}
+        .marquee-item{
+            font-family:'Boldonse',sans-serif;font-size:1.7rem;text-transform:uppercase;letter-spacing:0.05em;
+            color:var(--bone);white-space:nowrap;display:flex;align-items:center;gap:3rem;
+        }
+        .marquee-item .dot{color:var(--blood);font-size:1.4rem;}
+        .marquee-item.italic{font-family:'Fraunces',serif;font-style:italic;font-weight:500;color:var(--bone-dim);text-transform:none;letter-spacing:-0.01em;}
+        @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
-        .cta-full{text-align:center;padding:6rem 2rem;border-top:1px solid var(--border);position:relative;}
-        .cta-full h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,4rem);letter-spacing:0.02em;margin-bottom:0.75rem;}
-        .cta-full p{color:var(--text-secondary);margin-bottom:2rem;}
+        /* ========= SECTION SHELL ========= */
+        section{padding:8rem 2.5rem;position:relative;}
+        .container{max-width:1300px;margin:0 auto;position:relative;}
+        .sec-num{
+            font-family:'JetBrains Mono',monospace;font-size:0.7rem;text-transform:uppercase;
+            letter-spacing:0.25em;color:var(--blood);margin-bottom:1.5rem;
+            display:flex;align-items:center;gap:0.85rem;
+        }
+        .sec-num::before{content:'';width:32px;height:1px;background:var(--blood);}
+        .sec-title{
+            font-family:'Boldonse',sans-serif;font-size:clamp(2.6rem,7vw,5.5rem);
+            line-height:0.9;letter-spacing:-0.02em;text-transform:uppercase;margin-bottom:1.4rem;
+        }
+        .sec-title em{font-family:'Fraunces',serif;font-style:italic;font-weight:500;color:var(--bone-dim);text-transform:none;}
+        .sec-title .red{color:var(--blood);}
+        .sec-desc{color:var(--bone-dim);font-size:1.05rem;max-width:520px;line-height:1.75;}
+        .sec-desc.italic{font-style:italic;color:var(--bone-dim);}
 
-        footer{border-top:1px solid var(--border);padding:2rem 3rem;}
-        .foot-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
-        .foot-logo{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--text-secondary);letter-spacing:0.05em;}
-        .foot-links{display:flex;gap:1.5rem;}
-        .foot-links a{color:var(--text-muted);text-decoration:none;font-size:0.78rem;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;transition:color 0.2s;}
-        .foot-links a:hover{color:var(--text);}
-        .foot-credit{color:var(--text-muted);font-size:0.75rem;}
-        .foot-credit a{color:var(--text-secondary);text-decoration:none;}
+        /* ========= ABOUT ========= */
+        .about{border-top:1px solid var(--line);}
+        .about-grid{display:grid;grid-template-columns:5fr 7fr;gap:5rem;margin-top:4rem;align-items:start;}
+        .about-img{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--ink-3);}
+        .about-img img{width:100%;height:100%;object-fit:cover;filter:contrast(1.1) saturate(0.55) brightness(0.85);}
+        .about-img::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(12,10,8,0.7) 100%);}
+        .about-img-stamp{
+            position:absolute;bottom:1.5rem;left:1.5rem;right:1.5rem;display:flex;justify-content:space-between;
+            font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--bone);
+        }
+        .about-copy{padding-top:2rem;}
+        .about-quote{
+            font-family:'Fraunces',serif;font-style:italic;font-weight:400;
+            font-size:clamp(1.6rem,2.6vw,2.2rem);line-height:1.3;color:var(--bone);
+            margin-bottom:2.2rem;padding-left:1.4rem;border-left:2px solid var(--blood);
+        }
+        .about-quote .script{color:var(--blood);font-size:1.6em;line-height:0.5;display:inline-block;transform:translateY(0.18em);}
+        .about-text{color:var(--bone-dim);font-size:1rem;line-height:1.85;margin-bottom:1.1rem;}
+        .about-text:last-of-type{margin-bottom:2rem;}
+        .about-sign{display:flex;align-items:center;gap:1rem;padding-top:1.5rem;border-top:1px solid var(--line);}
+        .about-sign .sig{font-family:'Monsieur La Doulaise',cursive;font-size:2.2rem;color:var(--blood);line-height:1;}
+        .about-sign .role{font-family:'JetBrains Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--bone-mute);}
 
-        .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1);}
+        /* ========= STATS STRIP ========= */
+        .strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line-strong);border-bottom:1px solid var(--line-strong);background:var(--ink-2);}
+        .strip-cell{padding:2.4rem 2rem;border-right:1px solid var(--line);position:relative;}
+        .strip-cell:last-child{border-right:none;}
+        .strip-cell .k{font-family:'Boldonse',sans-serif;font-size:2.6rem;color:var(--bone);letter-spacing:-0.02em;line-height:1;margin-bottom:0.4rem;}
+        .strip-cell .k em{font-family:'Fraunces',serif;font-style:italic;font-weight:500;color:var(--blood);}
+        .strip-cell .l{font-family:'JetBrains Mono',monospace;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.22em;color:var(--bone-mute);}
+        .strip-cell .idx{position:absolute;top:0.7rem;right:0.85rem;font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--bone-mute);letter-spacing:0.12em;}
+
+        /* ========= SERVICES (FLASH MENU) ========= */
+        .services{border-top:1px solid var(--line);}
+        .svc-head{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:end;margin-bottom:4rem;}
+        .svc-foot{font-family:'JetBrains Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--bone-mute);text-align:right;}
+        .svc-foot .red{color:var(--blood);}
+        .svc-list{border-top:1px solid var(--line-strong);}
+        .svc-row{
+            display:grid;grid-template-columns:80px 1fr 1.5fr auto;gap:2.5rem;
+            padding:2.4rem 0.5rem;border-bottom:1px solid var(--line);
+            align-items:center;cursor:pointer;transition:padding 0.4s cubic-bezier(0.7,0,0.3,1),background 0.4s;
+            position:relative;
+        }
+        .svc-row::before{
+            content:'';position:absolute;left:0;top:0;height:100%;width:0;
+            background:linear-gradient(90deg,rgba(180,30,30,0.08) 0%,transparent 100%);
+            transition:width 0.5s cubic-bezier(0.7,0,0.3,1);z-index:-1;
+        }
+        .svc-row:hover{padding-left:2rem;}
+        .svc-row:hover::before{width:100%;}
+        .svc-row:hover .svc-name{color:var(--bone);}
+        .svc-row:hover .svc-arr{transform:translateX(0);opacity:1;color:var(--blood);}
+        .svc-num{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--blood);letter-spacing:0.18em;}
+        .svc-name{font-family:'Boldonse',sans-serif;font-size:clamp(1.4rem,2.4vw,2rem);text-transform:uppercase;letter-spacing:-0.01em;color:var(--bone-dim);transition:color 0.3s;}
+        .svc-desc{color:var(--bone-mute);font-size:0.95rem;line-height:1.65;}
+        .svc-price{display:flex;flex-direction:column;align-items:flex-end;gap:0.2rem;text-align:right;}
+        .svc-price .from{font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--bone-mute);}
+        .svc-price .amt{font-family:'Monsieur La Doulaise',cursive;font-size:2.6rem;color:var(--blood);line-height:0.9;}
+        .svc-price .amt.consult{font-family:'Fraunces',serif;font-style:italic;font-size:1.3rem;font-weight:500;color:var(--bone-dim);}
+        .svc-arr{font-family:'JetBrains Mono',monospace;color:var(--bone-mute);transform:translateX(-8px);opacity:0;transition:all 0.4s;position:absolute;right:0;}
+
+        /* ========= GALLERY (PINNED FLASH) ========= */
+        .gallery{border-top:1px solid var(--line);background:var(--ink-2);}
+        .gal-grid{
+            display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:90px;gap:1rem;margin-top:4rem;
+        }
+        .gal-cell{
+            position:relative;overflow:hidden;background:var(--ink-3);border:1px solid var(--line);
+            transition:transform 0.5s cubic-bezier(0.7,0,0.3,1),border-color 0.5s;
+        }
+        .gal-cell:hover{transform:translateY(-4px);border-color:var(--blood);}
+        .gal-cell img{width:100%;height:100%;object-fit:cover;filter:grayscale(40%) contrast(1.1);transition:filter 0.6s,transform 0.7s;}
+        .gal-cell:hover img{filter:grayscale(0%) contrast(1.15);transform:scale(1.04);}
+        .gal-cell .tape{
+            position:absolute;top:-12px;left:50%;transform:translateX(-50%) rotate(-3deg);
+            width:60px;height:22px;background:rgba(236,226,207,0.18);backdrop-filter:blur(4px);
+            border:1px solid rgba(236,226,207,0.25);
+        }
+        .gal-cell .label{
+            position:absolute;bottom:0.7rem;left:0.8rem;
+            font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.18em;
+            color:var(--bone);background:rgba(12,10,8,0.7);padding:0.25rem 0.55rem;
+        }
+        .g1{grid-column:span 7;grid-row:span 4;}
+        .g2{grid-column:span 5;grid-row:span 3;}
+        .g3{grid-column:span 5;grid-row:span 3;}
+        .g4{grid-column:span 4;grid-row:span 4;}
+        .g5{grid-column:span 3;grid-row:span 3;}
+        .g6{grid-column:span 5;grid-row:span 3;}
+
+        /* ========= BOOKSY / BOOKING ========= */
+        .booking{border-top:1px solid var(--line);background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%);}
+        .book-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:3.5rem;align-items:start;}
+        .book-copy h3{font-family:'Boldonse',sans-serif;font-size:2rem;text-transform:uppercase;letter-spacing:-0.01em;margin-bottom:1.2rem;line-height:1;}
+        .book-copy h3 em{font-family:'Fraunces',serif;font-style:italic;font-weight:500;color:var(--blood);text-transform:none;}
+        .book-copy p{color:var(--bone-dim);font-size:1rem;line-height:1.8;margin-bottom:1.2rem;}
+        .book-steps{list-style:none;margin-top:2rem;display:flex;flex-direction:column;gap:1rem;}
+        .book-steps li{display:flex;gap:1.2rem;align-items:flex-start;padding:1rem 0;border-top:1px solid var(--line);}
+        .book-steps li:last-child{border-bottom:1px solid var(--line);}
+        .book-steps .n{font-family:'Boldonse',sans-serif;color:var(--blood);font-size:1.3rem;flex-shrink:0;width:36px;}
+        .book-steps .t{font-family:'Fraunces',serif;font-size:1rem;color:var(--bone);font-weight:500;}
+        .book-steps .t em{display:block;font-style:italic;color:var(--bone-mute);font-size:0.88rem;margin-top:0.2rem;font-weight:400;}
+
+        /* Booksy embed slot — drop iframe / widget here when account ready */
+        .booksy-slot{
+            position:relative;background:var(--ink-3);border:1px solid var(--line-strong);
+            padding:0;min-height:520px;overflow:hidden;
+        }
+        .booksy-slot::before{
+            content:'';position:absolute;inset:0;
+            background:
+                linear-gradient(180deg,transparent 0%,rgba(180,30,30,0.05) 100%),
+                repeating-linear-gradient(45deg,transparent 0px,transparent 20px,rgba(236,226,207,0.02) 20px,rgba(236,226,207,0.02) 21px);
+            pointer-events:none;
+        }
+        .booksy-placeholder{
+            position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+            text-align:center;padding:3rem 2rem;gap:1.4rem;
+        }
+        .booksy-placeholder .badge{
+            font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.25em;
+            color:var(--blood);border:1px solid var(--blood);padding:0.45rem 0.9rem;
+        }
+        .booksy-placeholder h4{font-family:'Boldonse',sans-serif;font-size:2.3rem;line-height:1;text-transform:uppercase;}
+        .booksy-placeholder h4 em{font-family:'Fraunces',serif;font-style:italic;font-weight:500;color:var(--blood);text-transform:none;}
+        .booksy-placeholder p{max-width:340px;color:var(--bone-dim);font-size:0.95rem;line-height:1.65;}
+        .booksy-placeholder .ph-foot{font-family:'JetBrains Mono',monospace;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--bone-mute);margin-top:0.5rem;}
+
+        /* ========= REVIEWS ========= */
+        .reviews{border-top:1px solid var(--line);}
+        .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:4rem;}
+        .rev-card{
+            position:relative;border:1px solid var(--line);padding:2.5rem 2rem 2rem;
+            background:var(--ink-2);transition:border-color 0.4s,transform 0.4s;
+        }
+        .rev-card:hover{border-color:var(--blood);transform:translateY(-3px);}
+        .rev-card .qmark{
+            font-family:'Monsieur La Doulaise',cursive;font-size:5.5rem;color:var(--blood);
+            position:absolute;top:0;left:1.2rem;line-height:1;opacity:0.6;
+        }
+        .rev-stars{color:var(--blood);font-size:0.85rem;letter-spacing:0.15em;margin-bottom:1.2rem;position:relative;}
+        .rev-text{font-family:'Fraunces',serif;font-size:1rem;line-height:1.75;color:var(--bone);margin-bottom:1.5rem;font-style:italic;font-weight:400;}
+        .rev-foot{display:flex;justify-content:space-between;align-items:flex-end;padding-top:1rem;border-top:1px solid var(--line);}
+        .rev-name{font-family:'Monsieur La Doulaise',cursive;font-size:1.7rem;color:var(--bone);line-height:1;}
+        .rev-from{font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--bone-mute);}
+
+        /* ========= CONTACT ========= */
+        .contact{border-top:1px solid var(--line);background:var(--ink-2);}
+        .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line-strong);border:1px solid var(--line-strong);margin-top:4rem;}
+        .contact-cell{background:var(--ink);padding:3rem 2.5rem;}
+        .contact-cell h3{
+            font-family:'Boldonse',sans-serif;font-size:1.3rem;text-transform:uppercase;letter-spacing:-0.01em;
+            margin-bottom:2rem;display:flex;align-items:center;gap:0.8rem;
+        }
+        .contact-cell h3::before{content:'';width:24px;height:1px;background:var(--blood);}
+        .hours{display:flex;flex-direction:column;}
+        .hours-row{
+            display:flex;justify-content:space-between;align-items:baseline;
+            padding:1rem 0;border-bottom:1px dashed var(--line);
+        }
+        .hours-row:last-child{border-bottom:none;}
+        .hours-row.today{color:var(--blood);}
+        .hours-row .day{font-family:'Fraunces',serif;font-size:1rem;font-weight:500;}
+        .hours-row .time{font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--bone-dim);letter-spacing:0.05em;}
+        .hours-row.today .time{color:var(--blood);}
+
+        .ct-info{display:flex;flex-direction:column;gap:1.5rem;}
+        .ct-row{display:flex;align-items:flex-start;gap:1.2rem;padding:1rem 0;border-bottom:1px solid var(--line);}
+        .ct-row:last-child{border-bottom:none;}
+        .ct-ico{
+            width:40px;height:40px;border:1px solid var(--line-strong);
+            display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--blood);
+        }
+        .ct-ico svg{width:18px;height:18px;}
+        .ct-lbl{font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.22em;color:var(--bone-mute);margin-bottom:0.3rem;}
+        .ct-v{font-family:'Fraunces',serif;font-size:1.05rem;color:var(--bone);font-weight:500;}
+        .ct-v a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;transition:border-color 0.3s;}
+        .ct-v a:hover{border-bottom-color:var(--blood);color:var(--blood);}
+
+        .map-box{margin-top:3rem;height:340px;overflow:hidden;border:1px solid var(--line-strong);position:relative;}
+        .map-box::after{content:'';position:absolute;inset:0;pointer-events:none;border:6px solid var(--ink-2);}
+        .map-box iframe{width:100%;height:100%;border:0;filter:invert(92%) hue-rotate(180deg) brightness(0.75) contrast(1.4) saturate(0.1);}
+        .map-pin{
+            position:absolute;top:1rem;left:1rem;z-index:3;
+            background:var(--ink);border:1px solid var(--line-strong);padding:0.5rem 0.8rem;
+            font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--bone);
+        }
+        .map-pin .red{color:var(--blood);}
+
+        /* ========= BIG CTA ========= */
+        .cta-final{padding:9rem 2.5rem;text-align:center;border-top:1px solid var(--line);position:relative;overflow:hidden;}
+        .cta-final::before{
+            content:'';position:absolute;inset:0;
+            background:radial-gradient(circle at 50% 50%,var(--blood-glow) 0%,transparent 60%);
+            opacity:0.4;pointer-events:none;
+        }
+        .cta-final h2{font-family:'Boldonse',sans-serif;font-size:clamp(3rem,9vw,7rem);line-height:0.9;letter-spacing:-0.02em;text-transform:uppercase;margin-bottom:1.2rem;position:relative;}
+        .cta-final h2 em{font-family:'Fraunces',serif;font-style:italic;font-weight:500;color:var(--blood);text-transform:none;}
+        .cta-final h2 .script{font-family:'Monsieur La Doulaise',cursive;text-transform:none;color:var(--blood);font-size:1.2em;letter-spacing:0;display:inline-block;transform:translateY(0.05em);}
+        .cta-final p{color:var(--bone-dim);max-width:520px;margin:0 auto 2.5rem;font-size:1.05rem;line-height:1.7;font-style:italic;position:relative;}
+        .cta-final .btn-row{display:flex;gap:0.9rem;justify-content:center;flex-wrap:wrap;position:relative;}
+
+        /* ========= FOOTER ========= */
+        footer{border-top:1px solid var(--line);padding:3rem 2.5rem 2rem;background:var(--ink);}
+        .foot-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:3rem;padding-bottom:2.5rem;border-bottom:1px solid var(--line);}
+        .foot-brand{display:flex;flex-direction:column;gap:1rem;}
+        .foot-brand .lg{display:flex;align-items:center;gap:0.7rem;}
+        .foot-brand .lg svg{width:30px;height:30px;color:var(--blood);}
+        .foot-brand .lg .word{font-family:'Boldonse',sans-serif;font-size:1.1rem;letter-spacing:0.18em;text-transform:uppercase;}
+        .foot-brand .lg .word span{color:var(--blood);}
+        .foot-brand p{color:var(--bone-mute);font-size:0.88rem;line-height:1.7;font-style:italic;max-width:280px;}
+        .foot-col h4{font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.22em;color:var(--blood);margin-bottom:1.2rem;}
+        .foot-col ul{list-style:none;display:flex;flex-direction:column;gap:0.6rem;}
+        .foot-col a{color:var(--bone-dim);text-decoration:none;font-size:0.92rem;transition:color 0.3s;}
+        .foot-col a:hover{color:var(--bone);}
+        .foot-bot{display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;flex-wrap:wrap;gap:1rem;}
+        .foot-bot .credit{font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.18em;color:var(--bone-mute);}
+        .foot-bot .credit a{color:var(--bone-dim);text-decoration:none;}
+        .foot-bot .credit a:hover{color:var(--blood);}
+        .foot-bot .stamp{font-family:'Monsieur La Doulaise',cursive;color:var(--blood);font-size:1.3rem;}
+
+        /* ========= REVEAL ========= */
+        .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1),transform 0.9s cubic-bezier(0.16,1,0.3,1);}
         .reveal.visible{opacity:1;transform:translateY(0);}
-        .reveal-d1{transition-delay:0.1s;}.reveal-d2{transition-delay:0.2s;}.reveal-d3{transition-delay:0.3s;}
+        .d1{transition-delay:0.08s;}.d2{transition-delay:0.16s;}.d3{transition-delay:0.24s;}.d4{transition-delay:0.32s;}.d5{transition-delay:0.4s;}
 
-        @media(max-width:768px){
-            .nav-links{display:none;}.menu-toggle{display:flex;}
-            .nav-links.open{display:flex;flex-direction:column;position:absolute;top:100%;left:1rem;right:1rem;background:rgba(0,0,0,0.95);backdrop-filter:blur(20px);padding:1rem;gap:0.75rem;border:1px solid var(--border);}
-            nav{padding:0 1.5rem;}
-            .hero{padding:0 1.5rem 4rem;}
-            .hero h1{font-size:clamp(3rem,12vw,5rem);}
-            .stats-row{flex-wrap:wrap;gap:1.5rem;padding:2rem 1.5rem;}
-            .services-grid,.contact-wrap{grid-template-columns:1fr;}
-            .about-panel{position:relative;bottom:auto;right:auto;margin-top:1rem;}
-            .gallery-full{grid-template-columns:repeat(2,1fr);}
-            section{padding:4rem 1.5rem;}
-            .hero-btns{flex-direction:column;}
+        /* ========= MEDIA ========= */
+        @media(max-width:980px){
+            .nav-links{display:none;}
+            .nav-links.open{display:flex;flex-direction:column;position:absolute;top:100%;left:1rem;right:1rem;background:rgba(12,10,8,0.97);backdrop-filter:blur(20px);padding:1.2rem;gap:1rem;border:1px solid var(--line-strong);}
+            .menu-toggle{display:flex;}
+            nav{padding:1rem 1.5rem;}
+            nav.scrolled{padding:0.7rem 1.5rem;}
+            section{padding:5rem 1.5rem;}
+            .hero{padding:6rem 1.5rem 0;}
+            .hero h1 .row.indent{padding-left:0;}
+            .hero-bottom{grid-template-columns:1fr;gap:1.8rem;padding-bottom:3rem;}
+            .hero-icon{justify-self:start;}
+            .hero-btns{justify-self:start;}
+            .about-grid,.svc-head,.book-grid,.contact-grid,.foot-top{grid-template-columns:1fr;gap:2.5rem;}
+            .strip{grid-template-columns:repeat(2,1fr);}
+            .strip-cell{border-right:none;border-bottom:1px solid var(--line);}
+            .strip-cell:nth-child(odd){border-right:1px solid var(--line);}
+            .strip-cell:nth-last-child(-n+2){border-bottom:none;}
+            .svc-row{grid-template-columns:50px 1fr auto;padding:1.5rem 0.5rem;gap:1rem;}
+            .svc-desc{display:none;}
+            .svc-row:hover{padding-left:1rem;}
+            .gal-grid{grid-template-columns:repeat(6,1fr);grid-auto-rows:80px;}
+            .g1{grid-column:span 6;grid-row:span 3;}
+            .g2,.g3,.g6{grid-column:span 6;grid-row:span 3;}
+            .g4,.g5{grid-column:span 3;grid-row:span 3;}
+            .rev-grid{grid-template-columns:1fr;}
+            .marquee-item{font-size:1.2rem;}
+            .hero-meta{flex-direction:column;gap:0.7rem;}
         }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="#" class="nav-logo">Southern <span>Inkz</span></a>
+
+    <!-- ===== NAV ===== -->
+    <nav id="nav">
+        <a href="#" class="nav-logo">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4">
+                <path d="M16 3 L21 13 L31 14 L23 21 L26 31 L16 26 L6 31 L9 21 L1 14 L11 13 Z" fill="currentColor" opacity="0.15"/>
+                <path d="M16 3 L21 13 L31 14 L23 21 L26 31 L16 26 L6 31 L9 21 L1 14 L11 13 Z"/>
+                <circle cx="16" cy="17" r="3" fill="#b41e1e"/>
+            </svg>
+            <span class="word">Southern <span>Inkz</span></span>
+        </a>
         <ul class="nav-links" id="navLinks">
             <li><a href="#about">About</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#booking">Book</a></li>
             <li><a href="#reviews">Reviews</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
-        <a href="tel:01933278536" class="nav-cta">Book Now</a>
-        <button class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+        <a href="tel:01933278536" class="nav-cta">Book Now <span class="arr">→</span></a>
+        <button class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">☰</button>
     </nav>
 
+    <!-- ===== HERO ===== -->
     <section class="hero">
-        <div class="hero-bg"><img src="https://images.unsplash.com/photo-1598371839696-5c5bb1c12e38?w=1600" alt="Southern Inkz studio"></div>
+        <div class="hero-bg"><img src="https://images.unsplash.com/photo-1598371839696-5c5bb1c12e38?w=1800&q=85" alt="Southern Inkz studio interior"></div>
+
+        <div class="hero-meta">
+            <div class="ml"><span>● Open</span><span>52 Queen St · Wellingborough</span></div>
+            <div class="ml"><span>EST. WELLINGBOROUGH</span><span>NN8 4JP</span></div>
+        </div>
+
         <div class="hero-content">
-            <div class="hero-tag reveal">Wellingborough's Premier Tattoo Studio</div>
-            <h1 class="reveal reveal-d1">Your Vision,<br><span>Our Ink</span></h1>
-            <p class="reveal reveal-d2">Expert artists, all styles, spotless studio. Custom designs, cover-ups, full sleeves, and professional piercings on Queen Street.</p>
-            <div class="hero-btns reveal reveal-d3">
-                <a href="tel:01933278536" class="btn-solid">Book Consultation &rarr;</a>
-                <a href="#services" class="btn-outline">View Services</a>
+            <div class="hero-tag reveal">Tattoo &amp; Piercing Studio · Queen St</div>
+            <h1>
+                <span class="row reveal d1">Your <em>vision,</em></span>
+                <span class="row indent reveal d2"><span class="underline-mark">our</span> <span class="red">ink.</span></span>
+            </h1>
+
+            <div class="hero-bottom">
+                <p class="hero-lede reveal d3">Custom designs, cover-ups, full sleeves &amp; professional piercings — from a clean, sterile studio in the heart of Wellingborough. Walk-ins welcome. Booking advised for bigger pieces.</p>
+                <div class="hero-icon reveal d4">
+                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M32 4 L32 50 M32 50 L26 44 M32 50 L38 44 M28 8 L36 8 M27 12 L37 12 M22 50 L42 50 L40 60 L24 60 Z" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="32" cy="55" r="1.5" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div class="hero-btns reveal d5">
+                    <a href="#booking" class="btn btn-solid">Book a session <span class="arr">→</span></a>
+                    <a href="#services" class="btn btn-ghost">View work</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <div class="stats-row">
-        <div class="stat-unit"><span class="stat-big">6+</span><span class="stat-txt">Services</span></div>
-        <div class="stat-unit"><span class="stat-big">All</span><span class="stat-txt">Styles</span></div>
-        <div class="stat-unit"><span class="stat-big">Queen St</span><span class="stat-txt">Wellingborough</span></div>
-        <div class="stat-unit"><span class="stat-big">6 Days</span><span class="stat-txt">A Week</span></div>
+    <!-- ===== MARQUEE ===== -->
+    <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+            <span class="marquee-item">Walk-Ins Welcome <span class="dot">✦</span></span>
+            <span class="marquee-item italic">— custom designs —</span>
+            <span class="marquee-item">Cover Ups <span class="dot">✦</span></span>
+            <span class="marquee-item italic">— full sleeves —</span>
+            <span class="marquee-item">Piercings <span class="dot">✦</span></span>
+            <span class="marquee-item italic">— fine line · realism · traditional —</span>
+            <span class="marquee-item">Queen St <span class="dot">✦</span></span>
+            <span class="marquee-item italic">— since the start —</span>
+            <span class="marquee-item">Walk-Ins Welcome <span class="dot">✦</span></span>
+            <span class="marquee-item italic">— custom designs —</span>
+            <span class="marquee-item">Cover Ups <span class="dot">✦</span></span>
+            <span class="marquee-item italic">— full sleeves —</span>
+            <span class="marquee-item">Piercings <span class="dot">✦</span></span>
+            <span class="marquee-item italic">— fine line · realism · traditional —</span>
+            <span class="marquee-item">Queen St <span class="dot">✦</span></span>
+            <span class="marquee-item italic">— since the start —</span>
+        </div>
     </div>
 
-    <section id="about">
+    <!-- ===== ABOUT ===== -->
+    <section class="about" id="about">
         <div class="container">
-            <div class="sec-tag reveal">About Us</div>
-            <h2 class="sec-title reveal reveal-d1">About the Studio</h2>
-            <div class="about-wrap reveal reveal-d2">
-                <div class="about-img"><img src="https://images.unsplash.com/photo-1598371839696-5c5bb1c12e38?w=1200" alt="Southern Inkz studio" loading="lazy"></div>
-                <div class="about-panel">
-                    <h3>Wellingborough's Go-To Studio</h3>
-                    <p>Southern Inkz is Wellingborough's go-to tattoo and piercing studio, located on Queen Street. Our experienced artists specialise in every style from fine line and realism to traditional and Japanese.</p>
-                    <p>We pride ourselves on creating a welcoming, clean, and sterile environment where your ideas come to life in ink. Walk-ins are welcome, but booking a consultation ensures dedicated time for your vision.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+            <div class="sec-num reveal">01 / The Studio</div>
+            <h2 class="sec-title reveal d1">A studio with <em>a story</em><br>etched in <span class="red">every line.</span></h2>
 
-    <section id="services">
-        <div class="container">
-            <div class="sec-tag reveal">What We Offer</div>
-            <h2 class="sec-title reveal reveal-d1">Our Services</h2>
-            <p class="sec-desc reveal reveal-d2">Expert tattooing and professional piercing services for every style and vision.</p>
-            <div class="services-grid reveal reveal-d3">
-                <div class="svc-block"><div class="svc-num">01</div><h3>Custom Tattoo</h3><p>Bespoke designs created to your exact vision by our experienced artists.</p><span class="svc-price">from &pound;60/hr</span></div>
-                <div class="svc-block"><div class="svc-num">02</div><h3>Mini Tattoo</h3><p>Small, delicate designs perfect for a first tattoo or subtle addition.</p><span class="svc-price">from &pound;30</span></div>
-                <div class="svc-block"><div class="svc-num">03</div><h3>Cover Up</h3><p>Transform old or unwanted ink into something you'll love.</p><span class="svc-price">Consultation</span></div>
-                <div class="svc-block"><div class="svc-num">04</div><h3>Full Sleeve</h3><p>Full arm or leg sleeves designed with precision over multiple sessions.</p><span class="svc-price">Consultation</span></div>
-                <div class="svc-block"><div class="svc-num">05</div><h3>Ear Piercing</h3><p>Professional ear piercings: lobe, helix, tragus, and more.</p><span class="svc-price">from &pound;20</span></div>
-                <div class="svc-block"><div class="svc-num">06</div><h3>Body Piercing</h3><p>Safe, sterile body piercings including nose, navel, eyebrow, and more.</p><span class="svc-price">from &pound;25</span></div>
-            </div>
-        </div>
-    </section>
+            <div class="about-grid">
+                <div class="about-img reveal d2">
+                    <img src="https://images.unsplash.com/photo-1598371839696-5c5bb1c12e38?w=1200&q=85" alt="Inside Southern Inkz" loading="lazy">
+                    <div class="about-img-stamp">
+                        <span>Studio · Floor</span>
+                        <span>NN8 4JP</span>
+                    </div>
+                </div>
 
-    <section id="gallery">
-        <div class="container">
-            <div class="sec-tag reveal">Our Work</div>
-            <h2 class="sec-title reveal reveal-d1">Gallery</h2>
-            <div class="gallery-full reveal reveal-d2">
-                <div class="gal-item"><img src="https://images.unsplash.com/photo-1598371839696-5c5bb1c12e38?w=800" alt="Tattoo artist at work" loading="lazy"></div>
-                <div class="gal-item"><img src="https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=800" alt="Tattoo detail" loading="lazy"></div>
-                <div class="gal-item"><img src="https://images.unsplash.com/photo-1590246814883-57764a8db0d6?w=800" alt="Tattoo studio" loading="lazy"></div>
-                <div class="gal-item"><img src="https://images.unsplash.com/photo-1562962230-16e4623d36e6?w=800" alt="Tattoo art" loading="lazy"></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="reviews">
-        <div class="container">
-            <div class="sec-tag reveal">Testimonials</div>
-            <h2 class="sec-title reveal reveal-d1">What Our Customers Say</h2>
-            <div class="reviews-flex reveal reveal-d2">
-                <div class="rev-card">
-                    <div class="big-q">&ldquo;</div>
-                    <div class="rev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <p class="rev-text">Incredible custom work! I came in with a rough idea and they turned it into something beyond what I imagined. Absolutely love my new piece.</p>
-                    <div class="rev-name">Ryan K.</div>
-                    <div class="rev-from">Google Review</div>
-                </div>
-                <div class="rev-card">
-                    <div class="big-q">&ldquo;</div>
-                    <div class="rev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <p class="rev-text">Really clean studio and you can tell they take hygiene seriously. Felt comfortable and safe throughout the entire session.</p>
-                    <div class="rev-name">Emma L.</div>
-                    <div class="rev-from">Google Review</div>
-                </div>
-                <div class="rev-card">
-                    <div class="big-q">&ldquo;</div>
-                    <div class="rev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <p class="rev-text">The artists really listen to what you want. They took my idea, refined it, and the finished tattoo was perfect. Will definitely be going back.</p>
-                    <div class="rev-name">Chris P.</div>
-                    <div class="rev-from">Google Review</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact">
-        <div class="container">
-            <div class="sec-tag reveal">Get In Touch</div>
-            <h2 class="sec-title reveal reveal-d1">Contact &amp; Hours</h2>
-            <div class="contact-wrap reveal reveal-d2">
-                <div class="contact-pane">
-                    <h3>Opening Hours</h3>
-                    <table class="h-tbl">
-                        <tr><td>Monday</td><td>10:00 &ndash; 18:00</td></tr>
-                        <tr><td>Tuesday</td><td>10:00 &ndash; 18:00</td></tr>
-                        <tr><td>Wednesday</td><td>10:00 &ndash; 18:00</td></tr>
-                        <tr><td>Thursday</td><td>10:00 &ndash; 18:00</td></tr>
-                        <tr><td>Friday</td><td>10:00 &ndash; 18:00</td></tr>
-                        <tr><td>Saturday</td><td>10:00 &ndash; 18:00</td></tr>
-                        <tr><td>Sunday</td><td>By Appointment</td></tr>
-                    </table>
-                </div>
-                <div class="contact-pane">
-                    <h3>Find Us</h3>
-                    <div class="ct-info">
-                        <div class="ct-row"><div class="ct-ico">&#128205;</div><div><div class="ct-lbl">Address</div><div class="ct-v">52 Queen Street, Wellingborough NN8 4JP</div></div></div>
-                        <div class="ct-row"><div class="ct-ico">&#128222;</div><div><div class="ct-lbl">Phone</div><div class="ct-v"><a href="tel:01933278536">01933 278536</a></div></div></div>
-                        <div class="ct-row"><div class="ct-ico">&#127760;</div><div><div class="ct-lbl">Facebook</div><div class="ct-v"><a href="https://www.facebook.com/southerninkz/" target="_blank" rel="noopener">@southerninkz</a></div></div></div>
+                <div class="about-copy">
+                    <blockquote class="about-quote reveal d3">
+                        <span class="script">“</span>We don't just put ink on skin — we listen, refine, and translate ideas into something you'll wear with pride for the rest of your life.
+                    </blockquote>
+                    <p class="about-text reveal d4">Southern Inkz is Wellingborough's go-to tattoo and piercing studio, sat right on Queen Street. Our artists work across every style — fine line, realism, traditional, Japanese — bringing decades of combined experience to every piece.</p>
+                    <p class="about-text reveal d4">Hygiene is non-negotiable. We run a clean, sterile, fully-licensed environment so the only thing you have to think about is the art going on you. Walk-ins are welcome, but for bigger pieces we strongly recommend booking a consultation so we can plan it properly.</p>
+                    <div class="about-sign reveal d5">
+                        <span class="sig">— The Crew</span>
+                        <span class="role">Resident Artists</span>
                     </div>
                 </div>
             </div>
-            <div class="map-box reveal reveal-d3">
+        </div>
+    </section>
+
+    <!-- ===== STATS STRIP ===== -->
+    <div class="strip">
+        <div class="strip-cell reveal"><span class="idx">/01</span><div class="k">6<em>+</em></div><div class="l">Services Offered</div></div>
+        <div class="strip-cell reveal d1"><span class="idx">/02</span><div class="k"><em>All</em></div><div class="l">Styles · Tattoo &amp; Piercing</div></div>
+        <div class="strip-cell reveal d2"><span class="idx">/03</span><div class="k">6<em>/</em>7</div><div class="l">Days A Week</div></div>
+        <div class="strip-cell reveal d3"><span class="idx">/04</span><div class="k">5<em>★</em></div><div class="l">Customer Rated</div></div>
+    </div>
+
+    <!-- ===== SERVICES (FLASH MENU) ===== -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="sec-num reveal">02 / The Menu</div>
+            <div class="svc-head">
+                <h2 class="sec-title reveal d1">The <em>flash</em><br><span class="red">menu.</span></h2>
+                <p class="sec-desc reveal d2">Tattoos and piercings, every style. Prices below are starting points — final quote depends on size, detail and time. Book a consultation for anything bigger than a palm.</p>
+            </div>
+
+            <div class="svc-list">
+                <a href="#booking" class="svc-row reveal">
+                    <span class="svc-num">01</span>
+                    <span class="svc-name">Custom Tattoo</span>
+                    <span class="svc-desc">Bespoke designs drawn from scratch — bring a reference, a feeling, or just a vibe and we'll build the rest with you.</span>
+                    <span class="svc-price"><span class="from">From</span><span class="amt">£60/hr</span></span>
+                    <span class="svc-arr">↗</span>
+                </a>
+                <a href="#booking" class="svc-row reveal d1">
+                    <span class="svc-num">02</span>
+                    <span class="svc-name">Mini Tattoo</span>
+                    <span class="svc-desc">Small, delicate designs — perfect for a first piece, a hidden mark, or something subtle.</span>
+                    <span class="svc-price"><span class="from">From</span><span class="amt">£30</span></span>
+                    <span class="svc-arr">↗</span>
+                </a>
+                <a href="#booking" class="svc-row reveal d2">
+                    <span class="svc-num">03</span>
+                    <span class="svc-name">Cover Up</span>
+                    <span class="svc-desc">Old ink, regret tattoo, faded job? We turn the unwanted into something you'll actually love wearing.</span>
+                    <span class="svc-price"><span class="from">By</span><span class="amt consult">consult</span></span>
+                    <span class="svc-arr">↗</span>
+                </a>
+                <a href="#booking" class="svc-row reveal d3">
+                    <span class="svc-num">04</span>
+                    <span class="svc-name">Full Sleeve</span>
+                    <span class="svc-desc">Full arm or leg sleeves — designed cohesively, executed across multiple sessions with planning baked in.</span>
+                    <span class="svc-price"><span class="from">By</span><span class="amt consult">consult</span></span>
+                    <span class="svc-arr">↗</span>
+                </a>
+                <a href="#booking" class="svc-row reveal d4">
+                    <span class="svc-num">05</span>
+                    <span class="svc-name">Ear Piercing</span>
+                    <span class="svc-desc">Lobe, helix, tragus, conch, daith — done with single-use sterile needles, never guns.</span>
+                    <span class="svc-price"><span class="from">From</span><span class="amt">£20</span></span>
+                    <span class="svc-arr">↗</span>
+                </a>
+                <a href="#booking" class="svc-row reveal d5">
+                    <span class="svc-num">06</span>
+                    <span class="svc-name">Body Piercing</span>
+                    <span class="svc-desc">Nose, navel, eyebrow, lip — safe, sterile, and explained start to finish so you know exactly what you're walking into.</span>
+                    <span class="svc-price"><span class="from">From</span><span class="amt">£25</span></span>
+                    <span class="svc-arr">↗</span>
+                </a>
+            </div>
+
+            <p class="svc-foot reveal">All prices in <span class="red">GBP</span> · Final quote on consultation · £20 deposit secures your booking</p>
+        </div>
+    </section>
+
+    <!-- ===== GALLERY ===== -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="sec-num reveal">03 / The Work</div>
+            <div class="svc-head">
+                <h2 class="sec-title reveal d1">Recent <em>pieces</em>,<br>fresh off <span class="red">the gun.</span></h2>
+                <p class="sec-desc reveal d2">A snapshot of what we've been working on — fine line script, traditional flash, big colour pieces and clean piercings. <em>Swap with your own portfolio shots before launch.</em></p>
+            </div>
+
+            <div class="gal-grid">
+                <div class="gal-cell g1 reveal"><span class="tape"></span><img src="https://images.unsplash.com/photo-1598371839696-5c5bb1c12e38?w=1200&q=85" alt="Custom tattoo" loading="lazy"><span class="label">Custom · 2026</span></div>
+                <div class="gal-cell g2 reveal d1"><span class="tape"></span><img src="https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=900&q=85" alt="Detail work" loading="lazy"><span class="label">Detail</span></div>
+                <div class="gal-cell g3 reveal d2"><span class="tape"></span><img src="https://images.unsplash.com/photo-1590246814883-57764a8db0d6?w=900&q=85" alt="Studio shot" loading="lazy"><span class="label">Studio</span></div>
+                <div class="gal-cell g4 reveal d3"><span class="tape"></span><img src="https://images.unsplash.com/photo-1562962230-16e4623d36e6?w=900&q=85" alt="Tattoo art" loading="lazy"><span class="label">Sleeve</span></div>
+                <div class="gal-cell g5 reveal d4"><span class="tape"></span><img src="https://images.unsplash.com/photo-1559563362-c667ba5f5480?w=700&q=85" alt="Piercing" loading="lazy"><span class="label">Piercing</span></div>
+                <div class="gal-cell g6 reveal d5"><span class="tape"></span><img src="https://images.unsplash.com/photo-1565058379802-bbe93b2f703a?w=900&q=85" alt="Tattoo flash" loading="lazy"><span class="label">Flash</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== BOOKING (BOOKSY READY) ===== -->
+    <section class="booking" id="booking">
+        <div class="container">
+            <div class="sec-num reveal">04 / Booking</div>
+            <div class="svc-head">
+                <h2 class="sec-title reveal d1">Book your <em>chair.</em><br><span class="red">Online,</span> in seconds.</h2>
+                <p class="sec-desc reveal d2">Pick your artist, pick your slot, lock it in with a deposit — all without picking up the phone. Powered by Booksy once we go live.</p>
+            </div>
+
+            <div class="book-grid">
+                <div class="book-copy reveal d3">
+                    <h3>How it <em>works.</em></h3>
+                    <p>Booking online means we can plan your piece properly — no missed calls, no double-bookings, no awkward back-and-forth. You'll get a confirmation email, an automatic reminder the day before, and a clear price up front.</p>
+                    <ol class="book-steps">
+                        <li><span class="n">01</span><span class="t">Pick your service<em>tattoo, piercing, or consultation</em></span></li>
+                        <li><span class="n">02</span><span class="t">Choose a date &amp; artist<em>real-time availability</em></span></li>
+                        <li><span class="n">03</span><span class="t">Lock it in with deposit<em>£20 — comes off your final price</em></span></li>
+                        <li><span class="n">04</span><span class="t">Show up &amp; get inked<em>we'll send a reminder the day before</em></span></li>
+                    </ol>
+                </div>
+
+                <div class="booksy-slot reveal d4" id="booksy-embed">
+                    <!--
+                        BOOKSY WIDGET DROP-IN ZONE
+                        Once Booksy account is set up, paste the widget script & div here.
+                        Booksy provides: <script async src="https://booksy.com/widget/code.js?...">
+                                         <div class="booksy-widget-button" data-id="..."></div>
+                        Remove the .booksy-placeholder div below when live.
+                    -->
+                    <div class="booksy-placeholder">
+                        <span class="badge">Booksy · Coming Soon</span>
+                        <h4>One tap.<br>One <em>chair.</em></h4>
+                        <p>Live booking goes here once the studio's Booksy account is set up — instant slot selection, deposits, and reminders.</p>
+                        <a href="tel:01933278536" class="btn btn-solid">Call to book now <span class="arr">→</span></a>
+                        <span class="ph-foot">For now · 01933 278536</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== REVIEWS ===== -->
+    <section class="reviews" id="reviews">
+        <div class="container">
+            <div class="sec-num reveal">05 / Word On The Street</div>
+            <div class="svc-head">
+                <h2 class="sec-title reveal d1">What the <em>chairs</em><br>have <span class="red">to say.</span></h2>
+                <p class="sec-desc reveal d2">Real customers, real ink, real reviews — pulled straight from Google.</p>
+            </div>
+
+            <div class="rev-grid">
+                <div class="rev-card reveal d2">
+                    <span class="qmark">"</span>
+                    <div class="rev-stars">★ ★ ★ ★ ★</div>
+                    <p class="rev-text">Incredible custom work. I came in with a rough idea and they turned it into something beyond what I imagined. Absolutely love my new piece.</p>
+                    <div class="rev-foot"><span class="rev-name">Ryan K.</span><span class="rev-from">Google · 5★</span></div>
+                </div>
+                <div class="rev-card reveal d3">
+                    <span class="qmark">"</span>
+                    <div class="rev-stars">★ ★ ★ ★ ★</div>
+                    <p class="rev-text">Really clean studio — you can tell they take hygiene seriously. Felt comfortable and safe throughout the entire session, would 100% return.</p>
+                    <div class="rev-foot"><span class="rev-name">Emma L.</span><span class="rev-from">Google · 5★</span></div>
+                </div>
+                <div class="rev-card reveal d4">
+                    <span class="qmark">"</span>
+                    <div class="rev-stars">★ ★ ★ ★ ★</div>
+                    <p class="rev-text">The artists really listen to what you want. They took my idea, refined it, and the finished tattoo was perfect. Will definitely be going back.</p>
+                    <div class="rev-foot"><span class="rev-name">Chris P.</span><span class="rev-from">Google · 5★</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="sec-num reveal">06 / Find Us</div>
+            <div class="svc-head">
+                <h2 class="sec-title reveal d1">Drop in. <em>Or call.</em><br><span class="red">Either works.</span></h2>
+                <p class="sec-desc reveal d2">Right in the middle of Wellingborough on Queen Street. Open six days a week — Sundays by appointment only.</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-cell reveal d2">
+                    <h3>Opening Hours</h3>
+                    <div class="hours">
+                        <div class="hours-row" data-day="1"><span class="day">Monday</span><span class="time">10:00 — 18:00</span></div>
+                        <div class="hours-row" data-day="2"><span class="day">Tuesday</span><span class="time">10:00 — 18:00</span></div>
+                        <div class="hours-row" data-day="3"><span class="day">Wednesday</span><span class="time">10:00 — 18:00</span></div>
+                        <div class="hours-row" data-day="4"><span class="day">Thursday</span><span class="time">10:00 — 18:00</span></div>
+                        <div class="hours-row" data-day="5"><span class="day">Friday</span><span class="time">10:00 — 18:00</span></div>
+                        <div class="hours-row" data-day="6"><span class="day">Saturday</span><span class="time">10:00 — 18:00</span></div>
+                        <div class="hours-row" data-day="0"><span class="day">Sunday</span><span class="time">By Appointment</span></div>
+                    </div>
+                </div>
+
+                <div class="contact-cell reveal d3">
+                    <h3>Get In Touch</h3>
+                    <div class="ct-info">
+                        <div class="ct-row">
+                            <div class="ct-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+                            <div><div class="ct-lbl">Address</div><div class="ct-v">52 Queen Street, Wellingborough<br>NN8 4JP</div></div>
+                        </div>
+                        <div class="ct-row">
+                            <div class="ct-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 5c0 9 7 16 16 16l2-3-4-2-2 2c-3-1-6-4-7-7l2-2-2-4-3 0z"/></svg></div>
+                            <div><div class="ct-lbl">Phone</div><div class="ct-v"><a href="tel:01933278536">01933 278536</a></div></div>
+                        </div>
+                        <div class="ct-row">
+                            <div class="ct-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 22v-8h3l1-4h-4V8c0-1 .5-2 2-2h2V2h-3c-3 0-4 2-4 4v4H8v4h3v8z"/></svg></div>
+                            <div><div class="ct-lbl">Facebook</div><div class="ct-v"><a href="https://www.facebook.com/southerninkz/" target="_blank" rel="noopener">@southerninkz</a></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="map-box reveal d4">
+                <span class="map-pin"><span class="red">●</span> Queen Street · NN8 4JP</span>
                 <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Southern+Inkz+52+Queen+Street+Wellingborough+NN8+4JP" allowfullscreen loading="lazy"></iframe>
             </div>
         </div>
     </section>
 
-    <section class="cta-full">
-        <h2 class="reveal">Ready to Get Inked?</h2>
-        <p class="reveal reveal-d1">Book a consultation or walk in. We'd love to bring your vision to life.</p>
-        <a href="tel:01933278536" class="btn-solid reveal reveal-d2">Book Consultation &rarr;</a>
+    <!-- ===== CTA ===== -->
+    <section class="cta-final">
+        <h2 class="reveal">Ready to <em>get</em><br><span class="script">inked</span>?</h2>
+        <p class="reveal d1">Book a consultation, drop in for a chat, or pick up the phone — we'd love to bring your vision to life.</p>
+        <div class="btn-row reveal d2">
+            <a href="#booking" class="btn btn-solid">Book online <span class="arr">→</span></a>
+            <a href="tel:01933278536" class="btn btn-ghost">Call 01933 278536</a>
+        </div>
     </section>
 
+    <!-- ===== FOOTER ===== -->
     <footer>
-        <div class="foot-inner">
-            <span class="foot-logo">Southern Inkz Tattoo Studio</span>
-            <div class="foot-links"><a href="#about">About</a><a href="#services">Services</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a></div>
-            <span class="foot-credit">Built by <a href="https://twix.tf" target="_blank">Harry</a></span>
+        <div class="foot-top">
+            <div class="foot-brand">
+                <div class="lg">
+                    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4">
+                        <path d="M16 3 L21 13 L31 14 L23 21 L26 31 L16 26 L6 31 L9 21 L1 14 L11 13 Z" fill="currentColor" opacity="0.15"/>
+                        <path d="M16 3 L21 13 L31 14 L23 21 L26 31 L16 26 L6 31 L9 21 L1 14 L11 13 Z"/>
+                    </svg>
+                    <span class="word">Southern <span>Inkz</span></span>
+                </div>
+                <p>Wellingborough's home for tattoos &amp; piercings since the start. 52 Queen Street, NN8 4JP.</p>
+            </div>
+            <div class="foot-col">
+                <h4>Studio</h4>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#reviews">Reviews</a></li>
+                </ul>
+            </div>
+            <div class="foot-col">
+                <h4>Visit</h4>
+                <ul>
+                    <li><a href="#contact">Hours</a></li>
+                    <li><a href="https://maps.google.com/?q=52+Queen+Street+Wellingborough+NN8+4JP" target="_blank">Directions</a></li>
+                    <li><a href="tel:01933278536">01933 278536</a></li>
+                    <li><a href="#booking">Book Online</a></li>
+                </ul>
+            </div>
+            <div class="foot-col">
+                <h4>Follow</h4>
+                <ul>
+                    <li><a href="https://www.facebook.com/southerninkz/" target="_blank" rel="noopener">Facebook</a></li>
+                    <li><a href="#" target="_blank" rel="noopener">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="foot-bot">
+            <span class="credit">© Southern Inkz · Wellingborough · NN8 4JP</span>
+            <span class="stamp">— made on Queen St.</span>
+            <span class="credit">Site by <a href="https://twix.tf" target="_blank">Harry / twix.tf</a></span>
         </div>
     </footer>
 
     <script>
-        window.addEventListener('scroll',()=>{document.querySelector('nav').classList.toggle('scrolled',window.scrollY>50);});
-        const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
-        document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-        document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t){t.scrollIntoView({behavior:'smooth'});document.getElementById('navLinks').classList.remove('open');}});});
+        // Nav scroll state
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 40);
+        }, { passive: true });
+
+        // Reveal on scroll
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    obs.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+        // Smooth scroll + close menu
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                const t = document.querySelector(href);
+                if (t) {
+                    e.preventDefault();
+                    t.scrollIntoView({ behavior: 'smooth' });
+                    document.getElementById('navLinks').classList.remove('open');
+                }
+            });
+        });
+
+        // Highlight today's hours
+        const today = new Date().getDay();
+        const todayRow = document.querySelector(`.hours-row[data-day="${today}"]`);
+        if (todayRow) todayRow.classList.add('today');
     </script>
 </body>
 </html>
