@@ -406,13 +406,34 @@
 
         .map-box{margin-top:3rem;height:340px;overflow:hidden;border:1px solid var(--line-strong);position:relative;}
         .map-box::after{content:'';position:absolute;inset:0;pointer-events:none;border:6px solid var(--ink-2);}
-        .map-box iframe{width:100%;height:100%;border:0;filter:invert(92%) hue-rotate(180deg) brightness(0.75) contrast(1.4) saturate(0.1);}
+        .map-box iframe{
+            width:100%;height:100%;border:0;
+            filter:invert(92%) hue-rotate(180deg) brightness(0.75) contrast(1.4) saturate(0.1);
+            pointer-events:none;
+        }
         .map-pin{
-            position:absolute;top:1rem;left:1rem;z-index:3;
+            position:absolute;top:1rem;left:1rem;z-index:4;
             background:var(--ink);border:1px solid var(--line-strong);padding:0.5rem 0.8rem;
             font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--bone);
         }
         .map-pin .red{color:var(--blood);}
+        .map-marker{
+            position:absolute;top:50%;left:50%;
+            transform:translate(-50%,-100%);
+            z-index:3;pointer-events:none;
+            filter:drop-shadow(0 6px 10px rgba(0,0,0,0.65));
+        }
+        .map-marker svg{width:34px;height:44px;display:block;}
+        .map-open{
+            position:absolute;bottom:1rem;right:1rem;z-index:4;
+            background:var(--ink);border:1px solid var(--line-strong);
+            padding:0.55rem 0.85rem;text-decoration:none;
+            font-family:'JetBrains Mono',monospace;font-size:0.62rem;
+            text-transform:uppercase;letter-spacing:0.18em;color:var(--bone);
+            display:inline-flex;align-items:center;gap:0.5rem;
+            transition:border-color 0.3s,color 0.3s;
+        }
+        .map-open:hover{border-color:var(--blood);color:var(--blood);}
 
         /* ========= BIG CTA ========= */
         .cta-final{padding:8rem 2.5rem;text-align:center;border-top:1px solid var(--line);position:relative;overflow:hidden;}
@@ -851,8 +872,15 @@
             </div>
 
             <div class="map-box reveal d4">
+                <iframe src="https://maps.google.com/maps?ll=52.30240,-0.69430&z=17&t=m&output=embed&hl=en" loading="lazy" tabindex="-1"></iframe>
                 <span class="map-pin"><span class="red">●</span> Queen Street · NN8 4JP</span>
-                <iframe src="https://maps.google.com/maps?q=52+Queen+Street+Wellingborough+NN8+4JP&output=embed&z=17&hl=en" loading="lazy"></iframe>
+                <div class="map-marker" aria-hidden="true">
+                    <svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 1 C6 1 1 6 1 12 C1 19 12 31 12 31 C12 31 23 19 23 12 C23 6 18 1 12 1 Z" fill="#b41e1e" stroke="#0c0a08" stroke-width="1.5"/>
+                        <circle cx="12" cy="11" r="3" fill="#0c0a08"/>
+                    </svg>
+                </div>
+                <a href="https://maps.google.com/?q=52+Queen+Street+Wellingborough+NN8+4JP" target="_blank" rel="noopener" class="map-open">Open in Maps <span>↗</span></a>
             </div>
         </div>
     </section>
