@@ -52,14 +52,32 @@
 
         .red{color:var(--blood);}
 
+        /* ========= TOP MARQUEE (announcement bar) ========= */
+        .marquee-top{
+            position:relative;z-index:49;
+            border-bottom:1px solid var(--line-strong);
+            background:var(--ink-2);overflow:hidden;padding:0.65rem 0;
+        }
+        .marquee-top .marquee-track{display:flex;gap:2.2rem;width:max-content;animation:scroll 38s linear infinite;}
+        .marquee-top .marquee-item{
+            font-family:'JetBrains Mono',monospace;font-size:0.72rem;
+            text-transform:uppercase;letter-spacing:0.22em;color:var(--bone-dim);
+            white-space:nowrap;display:flex;align-items:center;gap:2.2rem;font-weight:500;
+        }
+        .marquee-top .marquee-item .dot{color:var(--blood);}
+        .marquee-top .marquee-item.italic{
+            font-family:'Fraunces',serif;font-style:italic;font-weight:500;
+            color:var(--bone-mute);text-transform:none;letter-spacing:-0.005em;font-size:0.85rem;
+        }
+
         /* ========= NAV ========= */
         nav{
-            position:fixed;top:0;left:0;right:0;z-index:50;
+            position:fixed;top:38px;left:0;right:0;z-index:50;
             padding:1.1rem 2rem;display:flex;align-items:center;justify-content:space-between;
-            transition:background 0.4s,padding 0.4s,border 0.4s;
+            transition:background 0.4s,padding 0.4s,border 0.4s,top 0.4s;
             border-bottom:1px solid transparent;
         }
-        nav.scrolled{background:rgba(12,10,8,0.85);backdrop-filter:blur(14px) saturate(140%);border-bottom-color:var(--line);padding:0.7rem 2rem;}
+        nav.scrolled{background:rgba(12,10,8,0.85);backdrop-filter:blur(14px) saturate(140%);border-bottom-color:var(--line);padding:0.7rem 2rem;top:0;}
         .nav-logo{display:flex;align-items:center;gap:0.7rem;text-decoration:none;color:var(--bone);}
         .nav-logo svg{width:28px;height:28px;}
         .nav-logo .word{font-family:'Boldonse',sans-serif;font-size:1.05rem;letter-spacing:0.18em;text-transform:uppercase;}
@@ -80,7 +98,21 @@
             border:1px solid var(--blood);transition:all 0.3s;display:inline-flex;align-items:center;gap:0.5rem;
         }
         .nav-cta:hover{background:transparent;color:var(--blood);}
-        .menu-toggle{display:none;background:none;border:1px solid var(--line-strong);color:var(--bone);width:40px;height:40px;cursor:pointer;align-items:center;justify-content:center;}
+        .menu-toggle{
+            display:none;background:none;border:1px solid var(--line-strong);
+            color:var(--bone);width:42px;height:42px;cursor:pointer;
+            align-items:center;justify-content:center;flex-shrink:0;
+            transition:border-color 0.3s,background 0.3s;
+        }
+        .menu-toggle:hover{border-color:var(--blood);background:rgba(180,30,30,0.06);}
+        .menu-toggle svg{width:18px;height:18px;}
+
+        /* ========= MOBILE DRAWER OVERLAY ========= */
+        .nav-overlay{
+            position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);
+            z-index:55;opacity:0;pointer-events:none;transition:opacity 0.35s;
+        }
+        .nav-overlay.open{opacity:1;pointer-events:auto;}
 
         /* ========= HERO ========= */
         .hero{
@@ -421,11 +453,31 @@
 
         /* ========= MEDIA ========= */
         @media(max-width:980px){
-            .nav-links{display:none;}
-            .nav-links.open{display:flex;flex-direction:column;position:absolute;top:100%;left:1rem;right:1rem;background:rgba(12,10,8,0.97);backdrop-filter:blur(20px);padding:1.2rem;gap:1rem;border:1px solid var(--line-strong);}
-            .menu-toggle{display:flex;}
-            nav{padding:1rem 1.5rem;}
-            nav.scrolled{padding:0.7rem 1.5rem;}
+            .menu-toggle{display:flex;order:1;}
+            .nav-logo{order:2;}
+            .nav-cta{order:3;font-size:0.62rem;padding:0.6rem 0.9rem;letter-spacing:0.15em;}
+            nav{padding:0.9rem 1.2rem;gap:0.8rem;}
+            nav.scrolled{padding:0.6rem 1.2rem;}
+
+            .nav-links{
+                display:flex;flex-direction:column;
+                position:fixed;top:0;left:0;bottom:0;
+                width:min(82vw,320px);
+                background:var(--ink);border-right:1px solid var(--line-strong);
+                padding:5rem 2rem 2rem;gap:0.4rem;
+                transform:translateX(-100%);
+                transition:transform 0.4s cubic-bezier(0.7,0,0.3,1);
+                z-index:60;overflow-y:auto;
+            }
+            .nav-links.open{transform:translateX(0);}
+            .nav-links li{border-bottom:1px solid var(--line);}
+            .nav-links a{
+                display:block;padding:1.15rem 0;font-size:0.78rem;
+                color:var(--bone);letter-spacing:0.22em;
+            }
+            .nav-links a::after{display:none;}
+            .nav-links a:hover{color:var(--blood);}
+
             section{padding:5rem 1.5rem;}
             .hero{padding:6rem 1.5rem 0;}
             .hero h1 .row.indent{padding-left:0;}
@@ -452,8 +504,37 @@
 </head>
 <body>
 
+    <!-- ===== TOP MARQUEE ===== -->
+    <div class="marquee-top" aria-hidden="true">
+        <div class="marquee-track">
+            <span class="marquee-item">Walk-Ins Welcome <span class="dot">✦</span></span>
+            <span class="marquee-item italic">— custom designs —</span>
+            <span class="marquee-item">52 Queen St <span class="dot">✦</span></span>
+            <span class="marquee-item italic">— Wellingborough · NN8 4JP —</span>
+            <span class="marquee-item">Cover Ups <span class="dot">✦</span></span>
+            <span class="marquee-item italic">— full sleeves · piercings —</span>
+            <span class="marquee-item">Open 6 / 7 <span class="dot">✦</span></span>
+            <span class="marquee-item italic">— Mon–Sat 10:00–18:00 —</span>
+            <span class="marquee-item">Walk-Ins Welcome <span class="dot">✦</span></span>
+            <span class="marquee-item italic">— custom designs —</span>
+            <span class="marquee-item">52 Queen St <span class="dot">✦</span></span>
+            <span class="marquee-item italic">— Wellingborough · NN8 4JP —</span>
+            <span class="marquee-item">Cover Ups <span class="dot">✦</span></span>
+            <span class="marquee-item italic">— full sleeves · piercings —</span>
+            <span class="marquee-item">Open 6 / 7 <span class="dot">✦</span></span>
+            <span class="marquee-item italic">— Mon–Sat 10:00–18:00 —</span>
+        </div>
+    </div>
+
     <!-- ===== NAV ===== -->
     <nav id="nav">
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                <line x1="4" y1="7" x2="20" y2="7"/>
+                <line x1="4" y1="12" x2="20" y2="12"/>
+                <line x1="4" y1="17" x2="20" y2="17"/>
+            </svg>
+        </button>
         <a href="#" class="nav-logo">
             <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4">
                 <path d="M16 3 L21 13 L31 14 L23 21 L26 31 L16 26 L6 31 L9 21 L1 14 L11 13 Z" fill="currentColor" opacity="0.15"/>
@@ -471,8 +552,8 @@
             <li><a href="#contact">Contact</a></li>
         </ul>
         <a href="tel:01933278536" class="nav-cta">Book Now <span class="arr">→</span></a>
-        <button class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">☰</button>
     </nav>
+    <div class="nav-overlay" id="navOverlay" aria-hidden="true"></div>
 
     <!-- ===== HERO ===== -->
     <section class="hero">
@@ -505,28 +586,6 @@
             </div>
         </div>
     </section>
-
-    <!-- ===== MARQUEE ===== -->
-    <div class="marquee" aria-hidden="true">
-        <div class="marquee-track">
-            <span class="marquee-item">Walk-Ins Welcome <span class="dot">✦</span></span>
-            <span class="marquee-item italic">— custom designs —</span>
-            <span class="marquee-item">Cover Ups <span class="dot">✦</span></span>
-            <span class="marquee-item italic">— full sleeves —</span>
-            <span class="marquee-item">Piercings <span class="dot">✦</span></span>
-            <span class="marquee-item italic">— fine line · realism · traditional —</span>
-            <span class="marquee-item">Queen St <span class="dot">✦</span></span>
-            <span class="marquee-item italic">— since the start —</span>
-            <span class="marquee-item">Walk-Ins Welcome <span class="dot">✦</span></span>
-            <span class="marquee-item italic">— custom designs —</span>
-            <span class="marquee-item">Cover Ups <span class="dot">✦</span></span>
-            <span class="marquee-item italic">— full sleeves —</span>
-            <span class="marquee-item">Piercings <span class="dot">✦</span></span>
-            <span class="marquee-item italic">— fine line · realism · traditional —</span>
-            <span class="marquee-item">Queen St <span class="dot">✦</span></span>
-            <span class="marquee-item italic">— since the start —</span>
-        </div>
-    </div>
 
     <!-- ===== ABOUT ===== -->
     <section class="about" id="about">
@@ -861,6 +920,19 @@
         }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
         document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
+        // Mobile drawer toggle
+        const navLinks = document.getElementById('navLinks');
+        const navOverlay = document.getElementById('navOverlay');
+        const menuToggle = document.getElementById('menuToggle');
+        const setDrawer = (open) => {
+            navLinks.classList.toggle('open', open);
+            navOverlay.classList.toggle('open', open);
+            menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            document.body.style.overflow = open ? 'hidden' : '';
+        };
+        menuToggle.addEventListener('click', () => setDrawer(!navLinks.classList.contains('open')));
+        navOverlay.addEventListener('click', () => setDrawer(false));
+
         // Smooth scroll + close menu
         document.querySelectorAll('a[href^="#"]').forEach(a => {
             a.addEventListener('click', function (e) {
@@ -870,7 +942,7 @@
                 if (t) {
                     e.preventDefault();
                     t.scrollIntoView({ behavior: 'smooth' });
-                    document.getElementById('navLinks').classList.remove('open');
+                    setDrawer(false);
                 }
             });
         });
