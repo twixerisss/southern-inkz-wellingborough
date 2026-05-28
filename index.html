@@ -263,7 +263,7 @@
         .g5{grid-column:span 3;grid-row:span 3;}
         .g6{grid-column:span 5;grid-row:span 3;}
 
-        /* ========= BOOKSY / BOOKING ========= */
+        /* ========= BOOKING / REACH ========= */
         .booking{border-top:1px solid var(--line);background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%);}
         .book-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:3.5rem;align-items:start;}
         .book-copy h3{font-family:'Boldonse',sans-serif;font-size:2rem;text-transform:uppercase;letter-spacing:-0.01em;margin-bottom:1.2rem;line-height:1;}
@@ -276,30 +276,50 @@
         .book-steps .t{font-family:'Fraunces',serif;font-size:1rem;color:var(--bone);font-weight:500;}
         .book-steps .t em{display:block;font-style:italic;color:var(--bone-mute);font-size:0.88rem;margin-top:0.2rem;font-weight:400;}
 
-        /* Booksy embed slot — drop iframe / widget here when account ready */
-        .booksy-slot{
-            position:relative;background:var(--ink-3);border:1px solid var(--line-strong);
-            padding:0;min-height:520px;overflow:hidden;
+        .reach-grid{display:flex;flex-direction:column;gap:1rem;}
+        .reach-card{
+            position:relative;display:grid;
+            grid-template-columns:56px 1fr auto;grid-template-rows:auto auto auto;
+            column-gap:1.4rem;row-gap:0.15rem;align-items:center;
+            background:var(--ink-3);border:1px solid var(--line-strong);
+            padding:1.6rem 1.8rem;text-decoration:none;color:var(--bone);
+            transition:border-color 0.4s,transform 0.4s,background 0.4s;
+            overflow:hidden;
         }
-        .booksy-slot::before{
-            content:'';position:absolute;inset:0;
-            background:
-                linear-gradient(180deg,transparent 0%,rgba(180,30,30,0.05) 100%),
-                repeating-linear-gradient(45deg,transparent 0px,transparent 20px,rgba(236,226,207,0.02) 20px,rgba(236,226,207,0.02) 21px);
-            pointer-events:none;
+        .reach-card::before{
+            content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--blood);
+            transform:scaleY(0);transform-origin:top;transition:transform 0.4s cubic-bezier(0.7,0,0.3,1);
         }
-        .booksy-placeholder{
-            position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
-            text-align:center;padding:3rem 2rem;gap:1.4rem;
+        .reach-card:hover{border-color:var(--blood);transform:translateY(-2px);background:var(--ink-2);}
+        .reach-card:hover::before{transform:scaleY(1);}
+        .reach-card:hover .reach-arr{transform:translate(4px,-4px);color:var(--blood);}
+        .reach-ico{
+            grid-row:1 / 4;grid-column:1;
+            width:56px;height:56px;border:1px solid var(--line-strong);
+            display:flex;align-items:center;justify-content:center;color:var(--blood);
+            transition:border-color 0.4s,background 0.4s;
         }
-        .booksy-placeholder .badge{
-            font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.25em;
-            color:var(--blood);border:1px solid var(--blood);padding:0.45rem 0.9rem;
+        .reach-ico svg{width:22px;height:22px;}
+        .reach-card:hover .reach-ico{border-color:var(--blood);background:rgba(180,30,30,0.08);}
+        .reach-lbl{
+            grid-row:1;grid-column:2;
+            font-family:'JetBrains Mono',monospace;font-size:0.62rem;
+            text-transform:uppercase;letter-spacing:0.22em;color:var(--bone-mute);
         }
-        .booksy-placeholder h4{font-family:'Boldonse',sans-serif;font-size:2.3rem;line-height:1;text-transform:uppercase;}
-        .booksy-placeholder h4 em{font-family:'Fraunces',serif;font-style:italic;font-weight:500;color:var(--blood);text-transform:none;}
-        .booksy-placeholder p{max-width:340px;color:var(--bone-dim);font-size:0.95rem;line-height:1.65;}
-        .booksy-placeholder .ph-foot{font-family:'JetBrains Mono',monospace;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--bone-mute);margin-top:0.5rem;}
+        .reach-val{
+            grid-row:2;grid-column:2;
+            font-family:'Fraunces',serif;font-style:italic;font-weight:600;
+            font-size:1.35rem;color:var(--bone);letter-spacing:-0.01em;line-height:1.15;word-break:break-word;
+        }
+        .reach-note{
+            grid-row:3;grid-column:2;
+            font-family:'Fraunces',serif;font-size:0.88rem;color:var(--bone-dim);margin-top:0.25rem;
+        }
+        .reach-arr{
+            grid-row:1 / 4;grid-column:3;
+            font-family:'JetBrains Mono',monospace;color:var(--bone-mute);font-size:1.1rem;
+            transition:transform 0.4s cubic-bezier(0.7,0,0.3,1),color 0.4s;
+        }
 
         /* ========= REVIEWS ========= */
         .reviews{border-top:1px solid var(--line);}
@@ -629,37 +649,50 @@
         <div class="container">
             <div class="sec-num reveal">04 / Booking</div>
             <div class="svc-head">
-                <h2 class="sec-title reveal d1">Book your <em>chair.</em><br><span class="red">Online,</span> in seconds.</h2>
-                <p class="sec-desc reveal d2">Pick your artist, pick your slot, lock it in with a deposit — all without picking up the phone. Powered by Booksy once we go live.</p>
+                <h2 class="sec-title reveal d1">Lock in <em>your</em><br><span class="red">chair.</span></h2>
+                <p class="sec-desc reveal d2">Three ways to reach us — DM the Insta, ring the studio, or drop us an email. Whatever suits.</p>
             </div>
 
             <div class="book-grid">
                 <div class="book-copy reveal d3">
                     <h3>How it <em>works.</em></h3>
-                    <p>Booking online means we can plan your piece properly — no missed calls, no double-bookings, no awkward back-and-forth. You'll get a confirmation email, an automatic reminder the day before, and a clear price up front.</p>
+                    <p>Send over a reference, rough idea, or just the vibe — placement, size, any colour. We'll come back with a quote, a slot, and the deposit details to lock it in.</p>
                     <ol class="book-steps">
-                        <li><span class="n">01</span><span class="t">Pick your service<em>tattoo, piercing, or consultation</em></span></li>
-                        <li><span class="n">02</span><span class="t">Choose a date &amp; artist<em>real-time availability</em></span></li>
-                        <li><span class="n">03</span><span class="t">Lock it in with deposit<em>£20 — comes off your final price</em></span></li>
-                        <li><span class="n">04</span><span class="t">Show up &amp; get inked<em>we'll send a reminder the day before</em></span></li>
+                        <li><span class="n">01</span><span class="t">Send your idea<em>reference, placement, size — whatever you've got</em></span></li>
+                        <li><span class="n">02</span><span class="t">We'll come back with a quote<em>plus a few slots that fit</em></span></li>
+                        <li><span class="n">03</span><span class="t">£20 deposit secures it<em>comes off the final price</em></span></li>
+                        <li><span class="n">04</span><span class="t">Show up &amp; get inked<em>walk-ins still welcome any time</em></span></li>
                     </ol>
                 </div>
 
-                <div class="booksy-slot reveal d4" id="booksy-embed">
-                    <!--
-                        BOOKSY WIDGET DROP-IN ZONE
-                        Once Booksy account is set up, paste the widget script & div here.
-                        Booksy provides: <script async src="https://booksy.com/widget/code.js?...">
-                                         <div class="booksy-widget-button" data-id="..."></div>
-                        Remove the .booksy-placeholder div below when live.
-                    -->
-                    <div class="booksy-placeholder">
-                        <span class="badge">Booksy · Coming Soon</span>
-                        <h4>One tap.<br>One <em>chair.</em></h4>
-                        <p>Live booking goes here once the studio's Booksy account is set up — instant slot selection, deposits, and reminders.</p>
-                        <a href="tel:01933278536" class="btn btn-solid">Call to book now <span class="arr">→</span></a>
-                        <span class="ph-foot">For now · 01933 278536</span>
-                    </div>
+                <div class="reach-grid reveal d4">
+                    <a href="https://instagram.com/southerninkztattoo" target="_blank" rel="noopener" class="reach-card">
+                        <span class="reach-ico">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                        </span>
+                        <span class="reach-lbl">Slide in the DMs</span>
+                        <span class="reach-val">@southerninkztattoo</span>
+                        <span class="reach-note">Fastest reply · references &amp; quotes</span>
+                        <span class="reach-arr">↗</span>
+                    </a>
+                    <a href="tel:01933278536" class="reach-card">
+                        <span class="reach-ico">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 5c0 9 7 16 16 16l2-3-4-2-2 2c-3-1-6-4-7-7l2-2-2-4-3 0z"/></svg>
+                        </span>
+                        <span class="reach-lbl">Call the studio</span>
+                        <span class="reach-val">01933 278536</span>
+                        <span class="reach-note">Open 10–18 · six days a week</span>
+                        <span class="reach-arr">↗</span>
+                    </a>
+                    <a href="mailto:southerninkz@gmail.com" class="reach-card">
+                        <span class="reach-ico">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 7l9 6 9-6"/></svg>
+                        </span>
+                        <span class="reach-lbl">Drop us an email</span>
+                        <span class="reach-val">southerninkz@gmail.com</span>
+                        <span class="reach-note">Longer briefs &amp; cover-up enquiries</span>
+                        <span class="reach-arr">↗</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -732,6 +765,14 @@
                             <div><div class="ct-lbl">Phone</div><div class="ct-v"><a href="tel:01933278536">01933 278536</a></div></div>
                         </div>
                         <div class="ct-row">
+                            <div class="ct-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 7l9 6 9-6"/></svg></div>
+                            <div><div class="ct-lbl">Email</div><div class="ct-v"><a href="mailto:southerninkz@gmail.com">southerninkz@gmail.com</a></div></div>
+                        </div>
+                        <div class="ct-row">
+                            <div class="ct-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div>
+                            <div><div class="ct-lbl">Instagram</div><div class="ct-v"><a href="https://instagram.com/southerninkztattoo" target="_blank" rel="noopener">@southerninkztattoo</a></div></div>
+                        </div>
+                        <div class="ct-row">
                             <div class="ct-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 22v-8h3l1-4h-4V8c0-1 .5-2 2-2h2V2h-3c-3 0-4 2-4 4v4H8v4h3v8z"/></svg></div>
                             <div><div class="ct-lbl">Facebook</div><div class="ct-v"><a href="https://www.facebook.com/southerninkz/" target="_blank" rel="noopener">@southerninkz</a></div></div>
                         </div>
@@ -749,9 +790,9 @@
     <!-- ===== CTA ===== -->
     <section class="cta-final">
         <h2 class="reveal">Ready to <em>get</em><br><span class="script">inked</span>?</h2>
-        <p class="reveal d1">Book a consultation, drop in for a chat, or pick up the phone — we'd love to bring your vision to life.</p>
+        <p class="reveal d1">Slide in the DMs, drop us an email, or pick up the phone — we'd love to bring your vision to life.</p>
         <div class="btn-row reveal d2">
-            <a href="#booking" class="btn btn-solid">Book online <span class="arr">→</span></a>
+            <a href="https://instagram.com/southerninkztattoo" target="_blank" rel="noopener" class="btn btn-solid">DM the studio <span class="arr">→</span></a>
             <a href="tel:01933278536" class="btn btn-ghost">Call 01933 278536</a>
         </div>
     </section>
@@ -784,14 +825,14 @@
                     <li><a href="#contact">Hours</a></li>
                     <li><a href="https://maps.google.com/?q=52+Queen+Street+Wellingborough+NN8+4JP" target="_blank">Directions</a></li>
                     <li><a href="tel:01933278536">01933 278536</a></li>
-                    <li><a href="#booking">Book Online</a></li>
+                    <li><a href="mailto:southerninkz@gmail.com">Email</a></li>
                 </ul>
             </div>
             <div class="foot-col">
                 <h4>Follow</h4>
                 <ul>
+                    <li><a href="https://instagram.com/southerninkztattoo" target="_blank" rel="noopener">Instagram</a></li>
                     <li><a href="https://www.facebook.com/southerninkz/" target="_blank" rel="noopener">Facebook</a></li>
-                    <li><a href="#" target="_blank" rel="noopener">Instagram</a></li>
                 </ul>
             </div>
         </div>
