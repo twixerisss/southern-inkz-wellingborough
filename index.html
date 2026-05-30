@@ -457,6 +457,12 @@
         .gal-grid{
             display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:90px;gap:1rem;margin-top:4rem;
         }
+        .gal-grid.shop{
+            grid-template-columns:1fr 1fr;grid-auto-rows:auto;
+        }
+        .gal-grid.shop .gal-cell{
+            grid-column:auto;grid-row:auto;aspect-ratio:4/3;
+        }
         .gal-cell{
             position:relative;overflow:hidden;background:var(--ink-3);border:1px solid var(--line);
             transition:transform 0.5s cubic-bezier(0.7,0,0.3,1),border-color 0.5s;
@@ -539,6 +545,91 @@
             transition:transform 0.4s cubic-bezier(0.7,0,0.3,1),color 0.4s;
         }
 
+        /* ========= GAMING & RETAIL ========= */
+        .retail{border-top:1px solid var(--line);background:var(--ink-2);}
+        .brand-grid{
+            display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin-top:3.5rem;
+        }
+        .brand-cell{
+            position:relative;aspect-ratio:1/1;background:var(--bone);
+            border:1px solid var(--line-strong);overflow:hidden;
+            display:flex;align-items:center;justify-content:center;padding:1rem;
+            transition:border-color 0.4s,transform 0.4s,background 0.4s;
+        }
+        .brand-cell img{
+            max-width:100%;max-height:100%;object-fit:contain;
+            filter:grayscale(1) contrast(1.05);
+            transition:filter 0.5s,transform 0.5s;
+        }
+        .brand-cell .brand-label{
+            position:absolute;bottom:0.5rem;left:0.6rem;right:0.6rem;
+            font-family:'JetBrains Mono',monospace;font-size:0.55rem;
+            text-transform:uppercase;letter-spacing:0.18em;color:var(--ink);
+            opacity:0;transform:translateY(4px);
+            transition:opacity 0.3s,transform 0.3s;
+            background:rgba(236,226,207,0.92);padding:0.25rem 0.4rem;
+            pointer-events:none;text-align:center;
+        }
+        .brand-cell:hover{border-color:var(--blood);transform:translateY(-3px);}
+        .brand-cell:hover img{filter:grayscale(0) contrast(1);transform:scale(1.04);}
+        .brand-cell:hover .brand-label{opacity:1;transform:translateY(0);}
+
+        .affiliate-wrap{margin-top:3rem;}
+        .affiliate-eyebrow{
+            font-family:'JetBrains Mono',monospace;font-size:0.7rem;
+            text-transform:uppercase;letter-spacing:0.25em;color:var(--blood);
+            display:flex;align-items:center;gap:0.85rem;margin-bottom:1.4rem;
+        }
+        .affiliate-eyebrow::before{content:'';width:32px;height:1px;background:var(--blood);}
+        .affiliate-card{
+            display:grid;grid-template-columns:minmax(220px,1fr) 2fr;gap:2.5rem;
+            padding:2.5rem;background:var(--ink);
+            border:1px solid var(--line-strong);
+            text-decoration:none;color:var(--bone);
+            transition:border-color 0.4s,transform 0.4s;position:relative;
+            overflow:hidden;
+        }
+        .affiliate-card::before{
+            content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+            background:var(--blood);transform:scaleY(0);transform-origin:top;
+            transition:transform 0.4s cubic-bezier(0.7,0,0.3,1);
+        }
+        .affiliate-card:hover{border-color:var(--blood);transform:translateY(-2px);}
+        .affiliate-card:hover::before{transform:scaleY(1);}
+        .affiliate-card:hover .affiliate-arr{transform:translate(4px,-4px);color:var(--blood);}
+        .affiliate-logo{
+            position:relative;aspect-ratio:1/1;background:var(--ink);
+            border:1px solid var(--line);
+            display:flex;align-items:center;justify-content:center;padding:1.5rem;
+        }
+        .affiliate-logo img{
+            max-width:100%;max-height:100%;object-fit:contain;
+            mix-blend-mode:screen;
+        }
+        .affiliate-body{
+            display:flex;flex-direction:column;gap:0.9rem;justify-content:center;
+        }
+        .affiliate-tag{
+            font-family:'JetBrains Mono',monospace;font-size:0.62rem;
+            text-transform:uppercase;letter-spacing:0.28em;color:var(--blood);
+        }
+        .affiliate-card h3{
+            font-family:'Boldonse',sans-serif;
+            font-size:clamp(1.6rem,3vw,2.4rem);line-height:1;
+            text-transform:uppercase;letter-spacing:-0.01em;color:var(--bone);
+        }
+        .affiliate-card p{
+            color:var(--bone-dim);font-family:'Fraunces',serif;font-style:italic;
+            font-size:1.02rem;line-height:1.7;max-width:480px;
+        }
+        .affiliate-arr{
+            margin-top:0.4rem;font-family:'JetBrains Mono',monospace;
+            font-size:0.72rem;text-transform:uppercase;letter-spacing:0.22em;
+            color:var(--bone-mute);align-self:flex-start;
+            display:inline-flex;align-items:center;gap:0.5rem;
+            transition:transform 0.4s cubic-bezier(0.7,0,0.3,1),color 0.3s;
+        }
+
         /* ========= REVIEWS ========= */
         .reviews{border-top:1px solid var(--line);}
         .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:4rem;}
@@ -590,6 +681,31 @@
         .ct-v a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;transition:border-color 0.3s;}
         .ct-v a:hover{border-bottom-color:var(--blood);color:var(--blood);}
 
+        .find-us{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:3rem;}
+        .find-us .map-box,.find-us .find-shop{margin-top:0;min-height:380px;height:100%;}
+        .find-shop{
+            position:relative;overflow:hidden;border:1px solid var(--line-strong);
+        }
+        .find-shop::after{content:'';position:absolute;inset:0;pointer-events:none;border:6px solid var(--ink-2);}
+        .find-shop img{
+            width:100%;height:100%;object-fit:cover;display:block;
+            filter:contrast(1.05) saturate(0.85) brightness(0.95);
+        }
+        .find-shop figcaption{
+            position:absolute;bottom:0;left:0;right:0;z-index:2;
+            padding:1.2rem 1.4rem;
+            background:linear-gradient(180deg,transparent 0%,rgba(12,10,8,0.9) 100%);
+            display:flex;flex-direction:column;gap:0.35rem;
+        }
+        .find-shop .pin{
+            font-family:'JetBrains Mono',monospace;font-size:0.62rem;
+            text-transform:uppercase;letter-spacing:0.22em;color:var(--bone);
+        }
+        .find-shop .pin .red{color:var(--blood);}
+        .find-shop .cap{
+            font-family:'Fraunces',serif;font-style:italic;
+            font-size:0.92rem;color:var(--bone-dim);line-height:1.5;
+        }
         .map-box{margin-top:3rem;height:340px;overflow:hidden;border:1px solid var(--line-strong);position:relative;}
         .map-box::after{content:'';position:absolute;inset:0;pointer-events:none;border:6px solid var(--ink-2);}
         .map-box iframe{
@@ -746,6 +862,10 @@
             .pierce-cols{grid-template-columns:1fr;gap:1.5rem;}
             .pierce-rules{padding:1.5rem 1.2rem;}
             .gal-grid{grid-template-columns:repeat(6,1fr);grid-auto-rows:80px;}
+            .gal-grid.shop{grid-template-columns:1fr;}
+            .find-us{grid-template-columns:1fr;}
+            .brand-grid{grid-template-columns:repeat(3,1fr);}
+            .affiliate-card{grid-template-columns:1fr;padding:1.8rem;gap:1.5rem;}
             .g1{grid-column:span 6;grid-row:span 3;}
             .g2,.g3,.g6{grid-column:span 6;grid-row:span 3;}
             .g4,.g5{grid-column:span 3;grid-row:span 3;}
@@ -800,6 +920,7 @@
             <li><a href="#about">About</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#retail">Retail</a></li>
             <li><a href="#booking">Book</a></li>
             <li><a href="#reviews">Reviews</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -1100,22 +1221,94 @@
         </div>
     </section>
 
-    <!-- ===== GALLERY ===== -->
+    <!-- ===== GALLERY (INSIDE THE STUDIO) ===== -->
     <section class="gallery" id="gallery">
         <div class="container">
-            <div class="sec-num reveal">03 / The Work</div>
+            <div class="sec-num reveal">03 / Inside</div>
             <div class="svc-head">
-                <h2 class="sec-title reveal d1">Recent <em>pieces</em>,<br>fresh off <span class="red">the gun.</span></h2>
-                <p class="sec-desc reveal d2">A snapshot of what we've been working on — fine line script, traditional flash, big colour pieces and clean piercings. <em>Swap with your own portfolio shots before launch.</em></p>
+                <h2 class="sec-title reveal d1">On the <em>floor</em>,<br>inside <span class="red">the studio.</span></h2>
+                <p class="sec-desc reveal d2">It's not just chairs and needles — Southern Inkz is a full studio with a retail wall, hair colour, tabletop gear and a chair waiting for the next piece. Have a look.</p>
             </div>
 
-            <div class="gal-grid">
-                <div class="gal-cell g1 reveal"><span class="tape"></span><img src="https://images.unsplash.com/photo-1598371839696-5c5bb1c12e38?w=1200&q=85" alt="Custom tattoo" loading="lazy"><span class="label">Custom · 2026</span></div>
-                <div class="gal-cell g2 reveal d1"><span class="tape"></span><img src="https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=900&q=85" alt="Detail work" loading="lazy"><span class="label">Detail</span></div>
-                <div class="gal-cell g3 reveal d2"><span class="tape"></span><img src="https://images.unsplash.com/photo-1590246814883-57764a8db0d6?w=900&q=85" alt="Studio shot" loading="lazy"><span class="label">Studio</span></div>
-                <div class="gal-cell g4 reveal d3"><span class="tape"></span><img src="https://images.unsplash.com/photo-1562962230-16e4623d36e6?w=900&q=85" alt="Tattoo art" loading="lazy"><span class="label">Sleeve</span></div>
-                <div class="gal-cell g5 reveal d4"><span class="tape"></span><img src="https://images.unsplash.com/photo-1559563362-c667ba5f5480?w=700&q=85" alt="Piercing" loading="lazy"><span class="label">Piercing</span></div>
-                <div class="gal-cell g6 reveal d5"><span class="tape"></span><img src="https://images.unsplash.com/photo-1565058379802-bbe93b2f703a?w=900&q=85" alt="Tattoo flash" loading="lazy"><span class="label">Flash</span></div>
+            <div class="gal-grid shop">
+                <div class="gal-cell reveal">
+                    <span class="tape"></span>
+                    <img src="studio/interior-shelves.jpg" alt="Inside Southern Inkz — retail shelves with games, Funko Pops and collectibles" loading="lazy">
+                    <span class="label">The Retail Wall</span>
+                </div>
+                <div class="gal-cell reveal d1">
+                    <span class="tape"></span>
+                    <img src="studio/hair-dye.jpg" alt="Directions hair colour display at Southern Inkz" loading="lazy">
+                    <span class="label">Hair Colour · Directions</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== GAMING & RETAIL ===== -->
+    <section class="retail" id="retail">
+        <div class="container">
+            <div class="sec-num reveal">04 / Gaming &amp; Retail</div>
+            <div class="svc-head">
+                <h2 class="sec-title reveal d1">What we <em>stock,</em><br>what we <span class="red">play.</span></h2>
+                <p class="sec-desc reveal d2">Tabletop wargames, trading cards, miniatures, collectibles, Funko Pops &amp; more — pulled from the brands we actually run on the floor. Hover any to colour them in.</p>
+            </div>
+
+            <div class="brand-grid">
+                <div class="brand-cell reveal">
+                    <img src="brands/kings-of-war.jpg" alt="Kings of War" loading="lazy">
+                    <span class="brand-label">Kings of War</span>
+                </div>
+                <div class="brand-cell reveal d1">
+                    <img src="brands/firefight.jpg" alt="Firefight" loading="lazy">
+                    <span class="brand-label">Firefight</span>
+                </div>
+                <div class="brand-cell reveal d2">
+                    <img src="brands/walking-dead.jpg" alt="The Walking Dead: All Out War" loading="lazy">
+                    <span class="brand-label">Walking Dead · AOW</span>
+                </div>
+                <div class="brand-cell reveal d3">
+                    <img src="brands/lorcana.jpg" alt="Disney Lorcana" loading="lazy">
+                    <span class="brand-label">Disney Lorcana</span>
+                </div>
+                <div class="brand-cell reveal d4">
+                    <img src="brands/star-wars-rivals.jpg" alt="Star Wars Rivals" loading="lazy">
+                    <span class="brand-label">Star Wars Rivals</span>
+                </div>
+                <div class="brand-cell reveal">
+                    <img src="brands/terrain-crate.jpg" alt="Terrain Crate" loading="lazy">
+                    <span class="brand-label">Terrain Crate</span>
+                </div>
+                <div class="brand-cell reveal d1">
+                    <img src="brands/mantic.jpg" alt="Mantic Games" loading="lazy">
+                    <span class="brand-label">Mantic</span>
+                </div>
+                <div class="brand-cell reveal d2">
+                    <img src="brands/monster-high.jpg" alt="Monster High" loading="lazy">
+                    <span class="brand-label">Monster High</span>
+                </div>
+                <div class="brand-cell reveal d3">
+                    <img src="brands/universal-monsters.jpg" alt="Universal Studios Monsters" loading="lazy">
+                    <span class="brand-label">Universal Monsters</span>
+                </div>
+                <div class="brand-cell reveal d4">
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.22em;color:var(--bone-mute);text-align:center;line-height:1.6;padding:0 0.5rem;">+ more on the floor</span>
+                </div>
+            </div>
+
+            <div class="affiliate-wrap reveal">
+                <div class="affiliate-eyebrow">Sister Brand</div>
+                <a href="#" class="affiliate-card" aria-label="Southern Wargaming Collectibles">
+                    <div class="affiliate-logo">
+                        <img src="brands/southern-wargaming.jpg" alt="Southern Wargaming Collectibles">
+                    </div>
+                    <div class="affiliate-body">
+                        <span class="affiliate-tag">Affiliated · Same Family</span>
+                        <h3>Southern Wargaming Collectibles</h3>
+                        <p>The sister brand for tabletop wargaming and collectibles — same Southern crew, same spirit, deeper stock. If you're here for the games more than the ink, this is the door to walk through.</p>
+                        <span class="affiliate-arr">Visit the sister brand <span>↗</span></span>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
@@ -1123,7 +1316,7 @@
     <!-- ===== BOOKING (BOOKSY READY) ===== -->
     <section class="booking" id="booking">
         <div class="container">
-            <div class="sec-num reveal">04 / Booking</div>
+            <div class="sec-num reveal">05 / Booking</div>
             <div class="svc-head">
                 <h2 class="sec-title reveal d1">Lock in <em>your</em><br><span class="red">chair.</span></h2>
                 <p class="sec-desc reveal d2">Three ways to reach us — DM the Insta, ring the studio, or drop us an email. Whatever suits.</p>
@@ -1177,7 +1370,7 @@
     <!-- ===== REVIEWS ===== -->
     <section class="reviews" id="reviews">
         <div class="container">
-            <div class="sec-num reveal">05 / Word On The Street</div>
+            <div class="sec-num reveal">06 / Word On The Street</div>
             <div class="svc-head">
                 <h2 class="sec-title reveal d1">What the <em>chairs</em><br>have <span class="red">to say.</span></h2>
                 <p class="sec-desc reveal d2">Real customers, real ink, real reviews — pulled straight from Google.</p>
@@ -1209,7 +1402,7 @@
     <!-- ===== CONTACT ===== -->
     <section class="contact" id="contact">
         <div class="container">
-            <div class="sec-num reveal">06 / Find Us</div>
+            <div class="sec-num reveal">07 / Find Us</div>
             <div class="svc-head">
                 <h2 class="sec-title reveal d1">Drop in. <em>Or call.</em><br><span class="red">Either works.</span></h2>
                 <p class="sec-desc reveal d2">Right in the middle of Wellingborough on Queen Street. Open six days a week — Sundays by appointment only.</p>
@@ -1256,16 +1449,25 @@
                 </div>
             </div>
 
-            <div class="map-box reveal d4">
-                <iframe src="https://maps.google.com/maps?ll=52.30240,-0.69430&z=17&t=m&output=embed&hl=en" loading="lazy" tabindex="-1"></iframe>
-                <span class="map-pin"><span class="red">●</span> Queen Street · NN8 4JP</span>
-                <div class="map-marker" aria-hidden="true">
-                    <svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 1 C6 1 1 6 1 12 C1 19 12 31 12 31 C12 31 23 19 23 12 C23 6 18 1 12 1 Z" fill="#b41e1e" stroke="#0c0a08" stroke-width="1.5"/>
-                        <circle cx="12" cy="11" r="3" fill="#0c0a08"/>
-                    </svg>
+            <div class="find-us">
+                <figure class="find-shop reveal d4">
+                    <img src="studio/storefront.jpg" alt="Southern Inkz storefront — 52 Queen Street, Wellingborough" loading="lazy">
+                    <figcaption>
+                        <span class="pin"><span class="red">●</span> Look for this</span>
+                        <span class="cap">Dark sign, white gothic letters, big star — you can't miss it once you're on Queen Street.</span>
+                    </figcaption>
+                </figure>
+                <div class="map-box reveal d4">
+                    <iframe src="https://maps.google.com/maps?ll=52.30240,-0.69430&z=17&t=m&output=embed&hl=en" loading="lazy" tabindex="-1"></iframe>
+                    <span class="map-pin"><span class="red">●</span> Queen Street · NN8 4JP</span>
+                    <div class="map-marker" aria-hidden="true">
+                        <svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 1 C6 1 1 6 1 12 C1 19 12 31 12 31 C12 31 23 19 23 12 C23 6 18 1 12 1 Z" fill="#b41e1e" stroke="#0c0a08" stroke-width="1.5"/>
+                            <circle cx="12" cy="11" r="3" fill="#0c0a08"/>
+                        </svg>
+                    </div>
+                    <a href="https://maps.google.com/?q=52+Queen+Street+Wellingborough+NN8+4JP" target="_blank" rel="noopener" class="map-open">Open in Maps <span>↗</span></a>
                 </div>
-                <a href="https://maps.google.com/?q=52+Queen+Street+Wellingborough+NN8+4JP" target="_blank" rel="noopener" class="map-open">Open in Maps <span>↗</span></a>
             </div>
         </div>
     </section>
@@ -1298,6 +1500,7 @@
                     <li><a href="#about">About</a></li>
                     <li><a href="#services">Services</a></li>
                     <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#retail">Gaming &amp; Retail</a></li>
                     <li><a href="#reviews">Reviews</a></li>
                 </ul>
             </div>
