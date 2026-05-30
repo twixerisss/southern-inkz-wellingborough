@@ -269,6 +269,18 @@
         .team-sign .sig{font-family:'Monsieur La Doulaise',cursive;font-size:2.2rem;color:var(--blood);line-height:1;}
         .team-sign .role{font-family:'JetBrains Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--bone-mute);}
 
+        .team-bio.pending{
+            font-family:'Fraunces',serif;font-style:italic;
+            color:var(--bone-mute);position:relative;padding-left:1rem;
+            border-left:2px dashed var(--line-strong);
+        }
+        .team-bio.pending::before{
+            content:'Bio incoming';display:block;
+            font-family:'JetBrains Mono',monospace;font-style:normal;
+            font-size:0.6rem;text-transform:uppercase;letter-spacing:0.25em;
+            color:var(--blood);margin-bottom:0.5rem;
+        }
+
         /* ========= STATS STRIP ========= */
         .strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line-strong);border-bottom:1px solid var(--line-strong);background:var(--ink-2);}
         .strip-cell{padding:2.4rem 2rem;border-right:1px solid var(--line);position:relative;}
@@ -834,6 +846,35 @@
                         <div class="team-sign">
                             <span class="sig">— Katrina</span>
                             <span class="role">Resident Body Piercer</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="team-member reveal d4">
+                    <div class="team-img">
+                        <img src="team/bailey.jpg" alt="Bailey — tattoo artist at Southern Inkz" loading="lazy">
+                        <div class="team-img-stamp">
+                            <span>Resident · Tattoo Artist</span>
+                            <span>NN8 4JP</span>
+                        </div>
+                    </div>
+
+                    <div class="team-body">
+                        <span class="team-role">Tattoo Artist</span>
+                        <h3 class="team-name">Bailey</h3>
+                        <span class="team-tag">— Resident at Southern Inkz</span>
+
+                        <div class="team-creds">
+                            <span class="chip red">Resident Artist</span>
+                            <span class="chip">Custom Pieces</span>
+                            <span class="chip">Cover Ups · Sleeves</span>
+                        </div>
+
+                        <p class="team-bio pending">Bailey's full bio is dropping here soon. In the meantime, his work is in the gallery below — and you can lock in a consultation through any of the channels in the booking section.</p>
+
+                        <div class="team-sign">
+                            <span class="sig">— Bailey</span>
+                            <span class="role">Resident Tattoo Artist</span>
                         </div>
                     </div>
                 </article>
