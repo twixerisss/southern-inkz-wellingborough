@@ -139,17 +139,15 @@
             margin-bottom:1.5rem;display:inline-flex;align-items:center;gap:0.85rem;
         }
         .hero-tag::before{content:'';width:32px;height:1px;background:var(--blood);}
-        .hero h1{
-            font-family:'Boldonse',Impact,sans-serif;
-            font-size:clamp(3.4rem,11vw,9.5rem);line-height:0.88;letter-spacing:-0.02em;
-            margin-bottom:1.5rem;text-transform:uppercase;
+        .hero-headline{
+            width:100%;max-width:760px;margin:0 0 1.6rem;
+            aspect-ratio:2.6 / 1;overflow:hidden;
+            line-height:0;font-size:0;
         }
-        .hero h1 .row{display:block;}
-        .hero h1 .row.indent{padding-left:clamp(2rem,18vw,16rem);}
-        .hero h1 em{font-family:'Fraunces',serif;font-style:italic;font-weight:500;text-transform:none;color:var(--bone-dim);letter-spacing:-0.01em;}
-        .hero h1 .red{color:var(--blood);}
-        .hero h1 .underline-mark{position:relative;display:inline-block;}
-        .hero h1 .underline-mark::after{content:'';position:absolute;left:-2%;right:-2%;bottom:0.06em;height:0.12em;background:var(--blood);z-index:-1;opacity:0.55;}
+        .hero-headline img{
+            width:100%;height:auto;display:block;
+            mix-blend-mode:screen;
+        }
 
         .hero-bottom{display:grid;grid-template-columns:1fr auto 1fr;gap:3rem;align-items:end;padding:2.5rem 0 4rem;border-top:1px solid var(--line);margin-top:3rem;}
         .hero-lede{max-width:380px;font-size:0.95rem;color:var(--bone-dim);line-height:1.7;}
@@ -691,7 +689,7 @@
 
             section{padding:5rem 1.5rem;}
             .hero{padding:6rem 1.5rem 0;}
-            .hero h1 .row.indent{padding-left:0;}
+            .hero-headline{aspect-ratio:2.4 / 1;margin-bottom:1.2rem;}
             .hero-bottom{grid-template-columns:1fr;gap:1.8rem;padding-bottom:3rem;}
             .hero-icon{justify-self:start;}
             .hero-btns{justify-self:start;}
@@ -792,9 +790,8 @@
 
         <div class="hero-content">
             <div class="hero-tag reveal">Tattoo &amp; Piercing Studio · Queen St</div>
-            <h1>
-                <span class="row reveal d1">Your <em>vision,</em></span>
-                <span class="row indent reveal d2"><span class="underline-mark">our</span> <span class="red">ink.</span></span>
+            <h1 class="hero-headline reveal d1">
+                <img src="hero-headline.jpg" alt="Inking and Tactics" loading="eager">
             </h1>
 
             <div class="hero-bottom">
