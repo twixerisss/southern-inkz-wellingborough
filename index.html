@@ -631,11 +631,12 @@
         /* ========= FOOTER ========= */
         footer{border-top:1px solid var(--line);padding:3rem 2.5rem 2rem;background:var(--ink);}
         .foot-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:3rem;padding-bottom:2.5rem;border-bottom:1px solid var(--line);}
-        .foot-brand{display:flex;flex-direction:column;gap:1rem;}
-        .foot-brand .lg{display:flex;align-items:center;gap:0.7rem;}
-        .foot-brand .lg svg{width:30px;height:30px;color:var(--blood);}
-        .foot-brand .lg .word{font-family:'Boldonse',sans-serif;font-size:1.1rem;letter-spacing:0.18em;text-transform:uppercase;}
-        .foot-brand .lg .word span{color:var(--blood);}
+        .foot-brand{display:flex;flex-direction:column;gap:1.2rem;}
+        .foot-logo{display:block;max-width:240px;line-height:0;}
+        .foot-logo img{
+            width:100%;height:auto;display:block;
+            mix-blend-mode:screen;
+        }
         .foot-brand p{color:var(--bone-mute);font-size:0.88rem;line-height:1.7;font-style:italic;max-width:280px;}
         .foot-col h4{font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.22em;color:var(--blood);margin-bottom:1.2rem;}
         .foot-col ul{list-style:none;display:flex;flex-direction:column;gap:0.6rem;}
@@ -1255,14 +1256,10 @@
     <footer>
         <div class="foot-top">
             <div class="foot-brand">
-                <div class="lg">
-                    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4">
-                        <path d="M16 3 L21 13 L31 14 L23 21 L26 31 L16 26 L6 31 L9 21 L1 14 L11 13 Z" fill="currentColor" opacity="0.15"/>
-                        <path d="M16 3 L21 13 L31 14 L23 21 L26 31 L16 26 L6 31 L9 21 L1 14 L11 13 Z"/>
-                    </svg>
-                    <span class="word">Southern <span>Inkz</span></span>
-                </div>
-                <p>Wellingborough's home for tattoos &amp; piercings since the start. 52 Queen Street, NN8 4JP.</p>
+                <a href="#" class="foot-logo" aria-label="Southern Inkz — back to top">
+                    <img src="logo.jpg" alt="Southern Inkz · Tattoos and Piercings · Gaming Studio" loading="lazy">
+                </a>
+                <p>Tattoos, piercings &amp; tabletop nights on Queen Street. 52 Queen Street, Wellingborough, NN8 4JP.</p>
             </div>
             <div class="foot-col">
                 <h4>Studio</h4>
