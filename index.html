@@ -9,7 +9,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=Monsieur+La+Doulaise&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=Monsieur+La+Doulaise&family=JetBrains+Mono:wght@400;500&family=Pirata+One&display=swap" rel="stylesheet">
 
     <style>
         :root{
@@ -140,13 +140,21 @@
         }
         .hero-tag::before{content:'';width:32px;height:1px;background:var(--blood);}
         .hero-headline{
-            width:100%;max-width:760px;margin:0 0 1.6rem;
-            aspect-ratio:2.6 / 1;overflow:hidden;
-            line-height:0;font-size:0;
+            font-family:'Pirata One','Boldonse',serif;
+            font-weight:400;font-size:clamp(4.2rem,13.5vw,10.5rem);
+            line-height:0.92;letter-spacing:0.01em;
+            text-transform:uppercase;color:var(--bone);
+            margin:0 0 2rem;
         }
-        .hero-headline img{
-            width:100%;height:auto;display:block;
-            mix-blend-mode:screen;
+        .hero-headline .ln{display:block;}
+        .hero-headline .ln.l2{padding-left:clamp(1.5rem,10vw,7rem);color:var(--bone-dim);}
+        .hero-headline .ln.l3{padding-left:clamp(3rem,22vw,14rem);color:var(--blood);}
+        .hero-headline .ln.l3{
+            position:relative;display:inline-block;
+        }
+        .hero-headline .ln.l3::after{
+            content:'';position:absolute;left:-1%;right:-1%;bottom:0.08em;
+            height:0.1em;background:var(--blood);opacity:0.35;z-index:-1;
         }
 
         .hero-bottom{display:grid;grid-template-columns:1fr auto 1fr;gap:3rem;align-items:end;padding:2.5rem 0 4rem;border-top:1px solid var(--line);margin-top:3rem;}
@@ -630,10 +638,29 @@
         footer{border-top:1px solid var(--line);padding:3rem 2.5rem 2rem;background:var(--ink);}
         .foot-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:3rem;padding-bottom:2.5rem;border-bottom:1px solid var(--line);}
         .foot-brand{display:flex;flex-direction:column;gap:1.2rem;}
-        .foot-logo{display:block;max-width:240px;line-height:0;}
-        .foot-logo img{
-            width:100%;height:auto;display:block;
-            mix-blend-mode:screen;
+        .foot-logo{
+            display:inline-flex;flex-direction:column;align-items:flex-start;gap:0.5rem;
+            text-decoration:none;color:var(--bone);line-height:1;
+        }
+        .foot-logo .lo-main{
+            font-family:'Pirata One','Boldonse',serif;font-weight:400;
+            font-size:2.6rem;line-height:0.9;letter-spacing:0.02em;
+            text-transform:uppercase;color:var(--bone);
+        }
+        .foot-logo .lo-main .ink{color:var(--blood);}
+        .foot-logo .lo-rule{
+            width:64%;height:1px;background:var(--blood);opacity:0.55;
+            margin:0.1rem 0 0.2rem;
+        }
+        .foot-logo .lo-tag{
+            font-family:'Pirata One','Boldonse',serif;font-weight:400;
+            font-size:1.05rem;letter-spacing:0.06em;text-transform:uppercase;
+            color:var(--bone-dim);line-height:1.1;
+        }
+        .foot-logo .lo-sub{
+            font-family:'JetBrains Mono',monospace;font-weight:500;
+            font-size:0.65rem;letter-spacing:0.28em;text-transform:uppercase;
+            color:var(--bone-mute);margin-top:0.15rem;
         }
         .foot-brand p{color:var(--bone-mute);font-size:0.88rem;line-height:1.7;font-style:italic;max-width:280px;}
         .foot-col h4{font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.22em;color:var(--blood);margin-bottom:1.2rem;}
@@ -689,7 +716,9 @@
 
             section{padding:5rem 1.5rem;}
             .hero{padding:6rem 1.5rem 0;}
-            .hero-headline{aspect-ratio:2.4 / 1;margin-bottom:1.2rem;}
+            .hero-headline{margin-bottom:1.4rem;}
+            .hero-headline .ln.l2{padding-left:1.4rem;}
+            .hero-headline .ln.l3{padding-left:3rem;}
             .hero-bottom{grid-template-columns:1fr;gap:1.8rem;padding-bottom:3rem;}
             .hero-icon{justify-self:start;}
             .hero-btns{justify-self:start;}
@@ -791,7 +820,9 @@
         <div class="hero-content">
             <div class="hero-tag reveal">Tattoo &amp; Piercing Studio · Queen St</div>
             <h1 class="hero-headline reveal d1">
-                <img src="hero-headline.jpg" alt="Inking and Tactics" loading="eager">
+                <span class="ln l1">Inking</span>
+                <span class="ln l2">and</span>
+                <span class="ln l3">Tactics</span>
             </h1>
 
             <div class="hero-bottom">
@@ -1254,7 +1285,10 @@
         <div class="foot-top">
             <div class="foot-brand">
                 <a href="#" class="foot-logo" aria-label="Southern Inkz — back to top">
-                    <img src="logo.jpg" alt="Southern Inkz · Tattoos and Piercings · Gaming Studio" loading="lazy">
+                    <span class="lo-main">Southern <span class="ink">Inkz</span></span>
+                    <span class="lo-rule" aria-hidden="true"></span>
+                    <span class="lo-tag">Tattoos &amp; Piercings</span>
+                    <span class="lo-sub">Gaming Studio</span>
                 </a>
                 <p>Tattoos, piercings &amp; tabletop nights on Queen Street. 52 Queen Street, Wellingborough, NN8 4JP.</p>
             </div>
