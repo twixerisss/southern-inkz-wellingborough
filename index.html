@@ -414,19 +414,67 @@
         }
         .rules-foot .red{color:var(--blood);font-weight:600;}
 
-        /* Games placeholder */
-        .games-placeholder{
-            padding:2.5rem 2rem;background:var(--ink-2);border:1px dashed var(--line-strong);
-            text-align:center;
+        /* Game booking grid */
+        .game-grid{
+            display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:0.4rem;
         }
-        .games-placeholder .badge{
-            display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.62rem;
+        .game-card{
+            position:relative;display:block;padding:1.6rem 1.6rem 1.4rem;
+            background:var(--ink-2);border:1px solid var(--line);
+            text-decoration:none;color:var(--bone);
+            transition:border-color 0.4s,background 0.4s,transform 0.4s;
+            overflow:hidden;
+        }
+        .game-card::before{
+            content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+            background:var(--blood);transform:scaleY(0);transform-origin:top;
+            transition:transform 0.4s cubic-bezier(0.7,0,0.3,1);
+        }
+        .game-card:hover{border-color:var(--blood);background:var(--ink-3);transform:translateY(-2px);}
+        .game-card:hover::before{transform:scaleY(1);}
+        .game-card:hover .game-book{color:var(--blood);}
+        .game-cat{
+            display:inline-block;
+            font-family:'JetBrains Mono',monospace;font-size:0.55rem;
+            text-transform:uppercase;letter-spacing:0.25em;
+            color:var(--bone-mute);border:1px solid var(--line-strong);
+            padding:0.3rem 0.6rem;margin-bottom:0.95rem;
+        }
+        .game-cat.rpg{color:var(--blood);border-color:var(--blood);}
+        .game-cat.tcg{color:var(--bone);border-color:var(--bone-dim);}
+        .game-cat.war{color:var(--bone-dim);}
+        .game-cat.paint{color:var(--bone-mute);border-style:dashed;}
+        .game-cat.byo{color:var(--bone-mute);}
+        .game-card h4{
+            font-family:'Boldonse',sans-serif;font-size:1.05rem;
+            text-transform:uppercase;letter-spacing:-0.01em;
+            color:var(--bone);line-height:1.1;margin-bottom:0.55rem;
+        }
+        .game-card p{
+            font-family:'Fraunces',serif;font-size:0.9rem;
+            color:var(--bone-dim);line-height:1.55;margin-bottom:1rem;
+        }
+        .game-book{
+            font-family:'JetBrains Mono',monospace;font-size:0.6rem;
+            text-transform:uppercase;letter-spacing:0.22em;
+            color:var(--bone-mute);transition:color 0.3s;
+        }
+
+        /* Bottom booking row */
+        .game-book-row{
+            margin-top:1.2rem;padding:2rem 1.8rem;
+            background:var(--ink);border:1px solid var(--line-strong);
+        }
+        .game-book-lede{
+            font-family:'JetBrains Mono',monospace;font-size:0.7rem;
             text-transform:uppercase;letter-spacing:0.25em;color:var(--blood);
-            border:1px solid var(--blood);padding:0.4rem 0.9rem;margin-bottom:1.4rem;
+            margin-bottom:1.2rem;display:flex;align-items:center;gap:0.85rem;
         }
-        .games-placeholder p{
-            font-family:'Fraunces',serif;font-style:italic;font-size:1rem;
-            color:var(--bone-dim);line-height:1.7;max-width:520px;margin:0 auto;
+        .game-book-lede::before{content:'';width:32px;height:1px;background:var(--blood);}
+        .game-book-cta{display:flex;gap:0.7rem;flex-wrap:wrap;}
+        .game-book-note{
+            margin-top:1.3rem;font-family:'Fraunces',serif;font-style:italic;
+            font-size:0.92rem;color:var(--bone-mute);line-height:1.6;
         }
         .svc-row{
             display:grid;grid-template-columns:80px 1fr 1.5fr auto;gap:2.5rem;
@@ -861,6 +909,9 @@
             .svc-acc-list li{grid-template-columns:1fr;gap:0.3rem;padding:0.9rem 0;}
             .pierce-cols{grid-template-columns:1fr;gap:1.5rem;}
             .pierce-rules{padding:1.5rem 1.2rem;}
+            .game-grid{grid-template-columns:1fr;}
+            .game-book-row{padding:1.5rem 1.2rem;}
+            .game-book-cta .btn{flex:1;justify-content:center;text-align:center;}
             .gal-grid{grid-template-columns:repeat(6,1fr);grid-auto-rows:80px;}
             .gal-grid.shop{grid-template-columns:1fr;}
             .find-us{grid-template-columns:1fr;}
@@ -1206,14 +1257,77 @@
                     <summary class="svc-acc-head">
                         <span class="svc-num">03</span>
                         <span class="svc-name">Game Nights</span>
-                        <span class="svc-tease">D&amp;D · Warmachine · more — list incoming</span>
+                        <span class="svc-tease">D&amp;D · Warmachine · Lorcana · painting &amp; more</span>
                         <span class="svc-acc-toggle" aria-hidden="true">+</span>
                     </summary>
                     <div class="svc-acc-body">
-                        <p class="svc-acc-intro">Southern Inkz isn't just ink — we host regular tabletop game nights at the studio. The full list, schedule and how to join are dropping here soon.</p>
-                        <div class="games-placeholder">
-                            <span class="badge">Coming soon</span>
-                            <p>For now, drop the studio a message on Instagram or give us a call to find out what's running this week.</p>
+                        <p class="svc-acc-intro">Tabletop nights at the studio — wargames, roleplay, trading cards and painting sessions. Pick a game, send us a message, and we'll set you up with a table, a time and other players.</p>
+
+                        <div class="game-grid">
+                            <a href="mailto:southerninkz@gmail.com?subject=Game%20Night%20Enquiry%20%E2%80%94%20Dungeons%20%26%20Dragons" class="game-card">
+                                <span class="game-cat rpg">Roleplay</span>
+                                <h4>Dungeons &amp; Dragons</h4>
+                                <p>Drop-in one-shots, ongoing campaigns, character sessions — bring a sheet or start one fresh.</p>
+                                <span class="game-book">Email to book ↗</span>
+                            </a>
+                            <a href="mailto:southerninkz@gmail.com?subject=Game%20Night%20Enquiry%20%E2%80%94%20Warmachine" class="game-card">
+                                <span class="game-cat war">Wargame</span>
+                                <h4>Warmachine</h4>
+                                <p>Skirmish battles, demo games for new players, organised nights for the regulars.</p>
+                                <span class="game-book">Email to book ↗</span>
+                            </a>
+                            <a href="mailto:southerninkz@gmail.com?subject=Game%20Night%20Enquiry%20%E2%80%94%20Kings%20of%20War" class="game-card">
+                                <span class="game-cat war">Wargame</span>
+                                <h4>Kings of War</h4>
+                                <p>Mantic's mass-battle fantasy game — bring your army or borrow a starter set to learn.</p>
+                                <span class="game-book">Email to book ↗</span>
+                            </a>
+                            <a href="mailto:southerninkz@gmail.com?subject=Game%20Night%20Enquiry%20%E2%80%94%20Firefight" class="game-card">
+                                <span class="game-cat war">Wargame</span>
+                                <h4>Firefight</h4>
+                                <p>Mantic's fast sci-fi skirmish — quick to pick up, easy entry into the wargame side.</p>
+                                <span class="game-book">Email to book ↗</span>
+                            </a>
+                            <a href="mailto:southerninkz@gmail.com?subject=Game%20Night%20Enquiry%20%E2%80%94%20Walking%20Dead%20AOW" class="game-card">
+                                <span class="game-cat war">Wargame</span>
+                                <h4>Walking Dead: All Out War</h4>
+                                <p>Survivor vs. walker miniature skirmish — narrative, gritty, no army required.</p>
+                                <span class="game-book">Email to book ↗</span>
+                            </a>
+                            <a href="mailto:southerninkz@gmail.com?subject=Game%20Night%20Enquiry%20%E2%80%94%20Disney%20Lorcana" class="game-card">
+                                <span class="game-cat tcg">Trading Cards</span>
+                                <h4>Disney Lorcana</h4>
+                                <p>TCG nights — bring a deck, build one on the spot, or learn the basics with us.</p>
+                                <span class="game-book">Email to book ↗</span>
+                            </a>
+                            <a href="mailto:southerninkz@gmail.com?subject=Game%20Night%20Enquiry%20%E2%80%94%20Star%20Wars%20Rivals" class="game-card">
+                                <span class="game-cat tcg">Trading Cards</span>
+                                <h4>Star Wars Rivals</h4>
+                                <p>Booster drafts and pick-up games for the new SWR card game — newcomers welcome.</p>
+                                <span class="game-book">Email to book ↗</span>
+                            </a>
+                            <a href="mailto:southerninkz@gmail.com?subject=Game%20Night%20Enquiry%20%E2%80%94%20Miniature%20Painting" class="game-card">
+                                <span class="game-cat paint">Painting</span>
+                                <h4>Miniature Painting</h4>
+                                <p>Painting sessions for any system — bring your minis, paints and a project. Tables, lamps and good chat on us.</p>
+                                <span class="game-book">Email to book ↗</span>
+                            </a>
+                            <a href="mailto:southerninkz@gmail.com?subject=Game%20Night%20Enquiry%20%E2%80%94%20Bring%20Your%20Own%20Game" class="game-card">
+                                <span class="game-cat byo">Bring Your Own</span>
+                                <h4>BYO Game Night</h4>
+                                <p>Got a system we don't list? Bring it in — board games, indie RPGs, deck-builders. We'll find you a table.</p>
+                                <span class="game-book">Email to book ↗</span>
+                            </a>
+                        </div>
+
+                        <div class="game-book-row">
+                            <div class="game-book-lede">Lock in a slot · three ways</div>
+                            <div class="game-book-cta">
+                                <a href="https://instagram.com/southerninkztattoo" target="_blank" rel="noopener" class="btn btn-solid">DM the studio <span class="arr">→</span></a>
+                                <a href="tel:01933278536" class="btn btn-ghost">Call 01933 278536</a>
+                                <a href="mailto:southerninkz@gmail.com?subject=Game%20Night%20Enquiry" class="btn btn-ghost">Email</a>
+                            </div>
+                            <p class="game-book-note">Tell us which game, how many players, and when works — we'll set the table, pull the gear out and confirm you in.</p>
                         </div>
                     </div>
                 </details>
